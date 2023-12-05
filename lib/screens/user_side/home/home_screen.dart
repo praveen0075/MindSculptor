@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 200,
                         width: 180,
                         decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 24, 113, 255)
+                            color:const Color.fromARGB(255, 19, 109, 253)
                                 .withOpacity(0.7),
                             borderRadius: BorderRadius.circular(20)),
                         child: const Stack(
