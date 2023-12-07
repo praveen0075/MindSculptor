@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/screens/user_side/first_screen/first_screen.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/widgets/bottomnavigaiton/bottomnavigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

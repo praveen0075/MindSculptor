@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
 import 'package:mind_sculptor/screens/admin_side/songs/new_song_screen.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 
 class AdminSongScreen extends StatefulWidget {
    const AdminSongScreen({super.key});

@@ -18,8 +18,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController conformPasswordController =
-      TextEditingController();
+  final TextEditingController conformPasswordController = TextEditingController();
 
   String? username;
   String? email;

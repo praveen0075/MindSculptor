@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 
 class SleepMusicScreen extends StatefulWidget {
   const SleepMusicScreen({super.key});

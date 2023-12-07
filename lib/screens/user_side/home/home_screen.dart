@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
 import 'package:mind_sculptor/model/user_model.dart';
 import 'package:mind_sculptor/screens/user_side/journal/journal_write_screen.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -314,14 +314,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           .withOpacity(0.7),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                      child: const Padding(
+                        padding:  EdgeInsets.all(10.0),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding:  EdgeInsets.all(8.0),
                             child: Text(
                               '',
-                              style: const TextStyle(
+                              style:  TextStyle(
                                   color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
                             ),

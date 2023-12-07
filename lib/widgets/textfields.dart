@@ -7,22 +7,30 @@ Widget appTextField({
   String? hint,
   IconData? icon,
   Color? iconClr,
-  TextEditingController? txtcntrlr
-}) {
-  return  Card(
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(radi!))),
-    elevation: 10,
-    child: TextField(
-      controller: txtcntrlr,
-      decoration: InputDecoration(
-        fillColor: fcolor,
-        filled: true,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(fieldradi!)),
-            borderSide: BorderSide.none),
-        hintText: hint,
-        prefixIcon: Icon(icon,color: iconClr,),
+  TextEditingController? txtcntrlr,
+  EdgeInsetsGeometry? conntentpadding, 
+}) 
+{
+  return  SizedBox(
+    height: 100,
+    child: Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radi!)),side: const BorderSide(style: BorderStyle.solid,width: 2)),
+      elevation: 10,
+      child: TextField(
+        minLines: 2,
+        maxLines: 2,
+        controller: txtcntrlr,
+        decoration: InputDecoration(
+          contentPadding: conntentpadding,
+          fillColor: fcolor,
+          filled: true,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(fieldradi!)),
+            ),
+          hintText: hint,
+          prefixIcon: Icon(icon,color: iconClr,),
+        ),
       ),
     ),
   );

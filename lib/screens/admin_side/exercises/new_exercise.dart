@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/widgets/snackbar.dart';
 
 class NewExerciseScreen extends StatefulWidget {  
@@ -26,7 +27,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   @override
   void initState() {
     super.initState();
-    exerciseBox = Hive.box('exercises');
+    ExerciseDb.getExersise();
   }
   Future<void> pickImage() async {
     final picker = ImagePicker();
@@ -55,7 +56,8 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
       title: titleTextController.text.trim(),
       description: descriptionController.text.trim(),
       cardImage: selectedImage!.path,); 
-      exerciseBox.add(newExercises);  
+      await ExerciseDb.addExercise(newExercises);
+      await ExerciseDb.getExersise();
       }else{
         showSnackbar(context,text: 'Add an exercise image',bgColor: Colors.red);
       }
@@ -200,7 +202,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                                       if(exerciseText.isEmpty || exerciseImage.isEmpty){
                                        showSnackbar(context,bgColor: Colors.green,text: 'Add both image and text'); 
                                       }else{
-                                        exerciseSteps.add(exerciseInstructionController.text);
+                                      exerciseSteps.add(exerciseInstructionController.text);
                                       exerciseImages.add(selectedImageForExercise!.path);
                                       exerciseInstructionController.clear();
                                       selectedImageForExercise = null;

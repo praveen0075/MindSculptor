@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
 
 class ButtonClass extends StatelessWidget {
 
@@ -8,13 +7,14 @@ class ButtonClass extends StatelessWidget {
   final double? cradius;
   final String? text;
   final VoidCallback? onpress;
+  final MaterialStateProperty<Color?>? bgColor;
 
  const ButtonClass({super.key,  
   this.text,
   this.height,
   this.width,
   this.onpress,
-  this.cradius
+  this.cradius, this.bgColor
   });
 
   @override
@@ -22,13 +22,14 @@ class ButtonClass extends StatelessWidget {
     return ElevatedButton(
     onPressed: onpress,
     style: ButtonStyle(
+      backgroundColor: bgColor,
         minimumSize: MaterialStateProperty.all( Size(width!, height!)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(cradius!),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all(lg1)),
+       ),
     child:  Text(text!,style: const TextStyle(color: Colors.white),),
   );
   }

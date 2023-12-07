@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_sculptor/screens/user_side/first_screen/first_screen.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/screens/user_side/settings/profile/profile_screen.dart';
 import 'package:mind_sculptor/widgets/setting_screen_tiles.dart';
 import 'package:shared_preferences/shared_preferences.dart';

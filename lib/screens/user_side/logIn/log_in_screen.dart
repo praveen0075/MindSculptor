@@ -118,7 +118,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       String enteredPassword =
                           loginPasswordController.text.trim();
                       final isLogInValidate = _formkey.currentState!.validate();
-                      if (enteredUsername == 'constantadmintext' &&
+                      if (enteredUsername == 'pravee@123' &&
                           enteredPassword == '1234') {
                         Navigator.pushReplacement(
                           context,

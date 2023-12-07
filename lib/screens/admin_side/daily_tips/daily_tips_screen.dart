@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
+import 'package:mind_sculptor/widgets/buttons.dart';
 import 'package:mind_sculptor/widgets/textfields.dart';
 
 class DailyTipsAdminScreen extends StatefulWidget {
@@ -26,6 +25,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Mindfulness Tips'),
         backgroundColor: tc1,
         elevation: 0,
         centerTitle: true,
@@ -36,7 +36,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
           colors: [
             tc1,
             lg1,
-            lg2,
+            tc2,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -47,16 +47,17 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
               padding: const EdgeInsets.all(8.0),
               child: appTextField(
                   txtcntrlr: _tip,
-                  iconClr: Colors.grey,
+                  iconClr: const Color.fromARGB(255, 213, 195, 28),
                   fcolor: Colors.white,
                   fieldradi: 20,
                   hint: 'Tip',
                   icon: Icons.tips_and_updates,
-                  radi: 20),
+                  radi: 20,
+                  conntentpadding: const EdgeInsets.symmetric(vertical: 36)
+                  ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  String randomTipText = _tip.text.trim();
+            ButtonClass(cradius: 10,height: 40,onpress: (){ 
+               String randomTipText = _tip.text.trim();
                   if (randomTipText.isNotEmpty) {
                     RandomTips randomTip =
                         mindfullnesstips.get(0, defaultValue: RandomTips([])) ??
@@ -66,10 +67,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                     _tip.clear();
                     setState(() {});
                   }
-                },
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(tc1)),
-                child: const Text('Add Tip')),
+            },text: 'Add tip',width: 100,bgColor: const MaterialStatePropertyAll(tc1)),
             Expanded(
               child: ValueListenableBuilder<Box<RandomTips>>(
                 valueListenable: mindfullnesstips.listenable(),
@@ -102,7 +100,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                                           Flexible(
                                               child: Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text(tip),
+                                            child: Center(child: Text(tip,textAlign: TextAlign.center,)),
                                           )),    
                                         ],
                                       ),

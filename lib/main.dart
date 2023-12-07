@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'; 
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mind_sculptor/constants/theme.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
@@ -32,9 +32,7 @@ class App extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mind Sculptor',
-      theme: ThemeData(
-        fontFamily: GoogleFonts.inter().fontFamily,
-      ),
+      theme: themeData,
       home: const SplashScreen(),
     );
   }

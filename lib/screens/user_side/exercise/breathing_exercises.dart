@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 
 class BreathingExerciseScreen extends StatelessWidget {
    BreathingExerciseScreen({super.key});

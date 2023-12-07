@@ -1,64 +1,44 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/edit_exercise.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/new_exercise.dart';
 import 'package:mind_sculptor/screens/admin_side/functions/exercise_screen_functions.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 
 class ExerciseAdmin extends StatefulWidget {
   const ExerciseAdmin({super.key});
 
   @override
   State<ExerciseAdmin> createState() => _ExerciseAdminState();
-}
+} 
+
 class _ExerciseAdminState extends State<ExerciseAdmin> {
   late Box<NewExercises> exerciseBox;
   @override
   void initState() {
     super.initState();
-    exerciseBox = Hive.box('exercises');
+    ExerciseDb.getExersise();
   }
-  void deletExercise(int index) {
-    exerciseBox.deleteAt(index);
-  }
-  void showDeleteDialog(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Delete Exercise'),
-          content: const Text('Are you sure you want to delete this exercise?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                deletExercise(index);
-                Navigator.pop(context);
-              },
-              child: const Text('Delete'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+
+  void deletExercise(int index) { 
+    ExerciseDb.deleteExercise(index);
+  } 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        navigation(context: context,key:const NewExerciseScreen());
-      },child: const Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          screenNavigation(context: context, key: const NewExerciseScreen());
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: tc1,
+        backgroundColor: tc1, 
       ),
       body: Container(
         height: double.maxFinite,
@@ -70,7 +50,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child:ScrollConfiguration(
+        child: ScrollConfiguration(
           behavior: const ScrollBehavior().copyWith(overscroll: false),
           child: SingleChildScrollView(
             child: Column(
@@ -78,19 +58,21 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                 SizedBox(
                   height: 720,
                   child: ValueListenableBuilder(
-                    valueListenable: exerciseBox.listenable(),
-                    builder: (context, box, _) {
-                      var exerciseList = box.values.toList().cast<NewExercises>();
+                    valueListenable: exerciseNotifier,
+                    builder: (context, exerciseList, _) {
                       return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: box.length,
+                        itemCount: exerciseList.length,
                         itemBuilder: (context, index) {
                           var exercise = exerciseList[index];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () {
-                                navigation(context: context,key:  EditExerciseScreen(exercises: exercise));
+                                screenNavigation(
+                                    context: context,
+                                    key: EditExerciseScreen(
+                                        exercises: exercise));
                               },
                               child: SizedBox(
                                 height: 150,
@@ -113,11 +95,8 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                           ),
                                         ),
                                         Flexible(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                          child: Column(crossAxisAlignment:CrossAxisAlignment.center,
+                                          mainAxisAlignment:MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 exercise.title,
@@ -127,9 +106,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                                     fontSize: 18),
                                                 textAlign: TextAlign.center,
                                               ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
+                                            sizedBox10,
                                               Text(
                                                 exercise.description,
                                                 textAlign: TextAlign.center,
@@ -140,10 +117,11 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                                 children: [
                                                   InkWell(
                                                       onTap: () {
-                                                        showDeleteDialog(index);
+                                                        showDeleteDialog(index, context, () {
+                                                          deletExercise(index);
+                                                        });
                                                       },
-                                                      child: const Icon(
-                                                          Icons.delete)),
+                                                      child: const Icon(Icons.delete)),
                                                 ],
                                               )
                                             ],

@@ -3,7 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mind_sculptor/widgets/snackbar.dart';
 

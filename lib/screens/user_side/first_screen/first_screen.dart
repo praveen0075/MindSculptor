@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/constv.dart';
+import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/screens/user_side/logIn/log_in_screen.dart';
 import 'package:mind_sculptor/screens/user_side/signIn/sign_in_screen.dart';
 import 'package:mind_sculptor/widgets/buttons.dart';
