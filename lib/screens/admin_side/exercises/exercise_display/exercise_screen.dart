@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
-import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
-import 'package:mind_sculptor/screens/admin_side/exercises/edit_exercise.dart';
-import 'package:mind_sculptor/screens/admin_side/exercises/new_exercise.dart';
-import 'package:mind_sculptor/screens/admin_side/functions/exercise_screen_functions.dart';
+import 'package:mind_sculptor/screens/admin_side/exercises/edit_exerise/edit_exercise_screen.dart';
+import 'package:mind_sculptor/screens/admin_side/exercises/add_new_exercise/new_exercise.dart';
+import 'package:mind_sculptor/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 
 class ExerciseAdmin extends StatefulWidget {
@@ -16,7 +14,6 @@ class ExerciseAdmin extends StatefulWidget {
 } 
 
 class _ExerciseAdminState extends State<ExerciseAdmin> {
-  late Box<NewExercises> exerciseBox;
   @override
   void initState() {
     super.initState();

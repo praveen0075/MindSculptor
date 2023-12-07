@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
-
 
 class EditExerciseScreen extends StatefulWidget {
   final NewExercises exercises;
@@ -15,10 +12,9 @@ class EditExerciseScreen extends StatefulWidget {
 }
 
 class _EditExerciseScreenState extends State<EditExerciseScreen> {
-  late Box<NewExercises> exerciseBoxOfDisplayScreen;
-
   TextEditingController stepController = TextEditingController();
   File? editedImage;
+  
   void updateStep(int index, String newStep) {
     NewExercises editexercises = widget.exercises;
     editexercises.steps[index] = newStep;

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
@@ -21,7 +20,6 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   File? selectedImage;
   File? selectedImageForExercise;
   String? instructionText;
-  late Box<NewExercises> exerciseBox;
   List<String>exerciseSteps = [];
   List<String>exerciseImages = [];
   @override
@@ -29,10 +27,10 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
     super.initState();
     ExerciseDb.getExersise();
   }
-  Future<void> pickImage() async {
+   Future<void> pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
+     setState(() {
       if (pickedImage != null) {
         selectedImage = File(pickedImage.path);
       }

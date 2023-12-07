@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
         builder: (context) =>  key,
       ));
 }
-
 //deleteDialoguebox functon //
-
    void showDeleteDialog(int index,context, void Function() onpressFunction,) {
     showDialog(
       context: context,

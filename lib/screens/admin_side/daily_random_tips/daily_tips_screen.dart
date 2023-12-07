@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mind_sculptor/controller/random_tips/random_tipdb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/widgets/buttons.dart';
 import 'package:mind_sculptor/widgets/textfields.dart';
+
 
 class DailyTipsAdminScreen extends StatefulWidget {
   const DailyTipsAdminScreen({super.key});
@@ -14,11 +15,25 @@ class DailyTipsAdminScreen extends StatefulWidget {
 
 class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
   final _tip = TextEditingController();
-  late Box<RandomTips> mindfullnesstips;
+  
   @override
   void initState() {
     super.initState();
-    mindfullnesstips = Hive.box('randomtips');
+    RandomTipsDb.getTip();
+  }
+    void deleteTipFromDatabase(int index){
+    RandomTipsDb.deletTip(index); 
+  }
+    void addTipToDatabase()async {
+    final String tip = _tip.text.trim();
+    if(tip.isNotEmpty){
+       RandomTips tipValue = RandomTips(tip);
+       await RandomTipsDb.addTip(tipValue);
+       await RandomTipsDb.getTip();
+       _tip.clear();
+    }else{
+      return;
+    }
   }
 
   @override
@@ -36,7 +51,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
           colors: [
             tc1,
             lg1,
-            tc2,
+            lg2,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -49,7 +64,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                   txtcntrlr: _tip,
                   iconClr: const Color.fromARGB(255, 213, 195, 28),
                   fcolor: Colors.white,
-                  fieldradi: 20,
+                  fieldradi: 20,  
                   hint: 'Tip',
                   icon: Icons.tips_and_updates,
                   radi: 20,
@@ -57,30 +72,18 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                   ),
             ),
             ButtonClass(cradius: 10,height: 40,onpress: (){ 
-               String randomTipText = _tip.text.trim();
-                  if (randomTipText.isNotEmpty) {
-                    RandomTips randomTip =
-                        mindfullnesstips.get(0, defaultValue: RandomTips([])) ??
-                            RandomTips([]);
-                    randomTip.tip.add(randomTipText);
-                    mindfullnesstips.put(0, randomTip);
-                    _tip.clear();
-                    setState(() {});
-                  }
+             addTipToDatabase();
             },text: 'Add tip',width: 100,bgColor: const MaterialStatePropertyAll(tc1)),
             Expanded(
-              child: ValueListenableBuilder<Box<RandomTips>>(
-                valueListenable: mindfullnesstips.listenable(),
+              child: ValueListenableBuilder(
+                valueListenable: randomTipsnotifier,
                 builder: (context, box, _) {
-                  RandomTips tipModel =
-                      box.get(0, defaultValue: RandomTips([])) ??
-                          RandomTips([]);
                   return ScrollConfiguration(
                     behavior: const ScrollBehavior().copyWith(overscroll: false),
                     child: ListView.builder(
-                      itemCount: tipModel.tip.length,
+                    itemCount: box.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final tip = tipModel.tip[index];
+                        var randomtips = box[index];  
                         return ListTile(
                           title: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -100,7 +103,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                                           Flexible(
                                               child: Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Center(child: Text(tip,textAlign: TextAlign.center,)),
+                                            child: Center(child: Text(randomtips.tip.toString(),textAlign: TextAlign.center,)),
                                           )),    
                                         ],
                                       ),
@@ -112,17 +115,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                                     right: 10,
                                      child: InkWell(
                                                     onTap: () {
-                                                      setState(() {
-                                                        RandomTips tipModel =
-                                                            mindfullnesstips.get(0,
-                                                                    defaultValue:
-                                                                        RandomTips(
-                                                                            [])) ??
-                                                                RandomTips([]);
-                                                        tipModel.tip.removeAt(index);
-                                                        mindfullnesstips.put(
-                                                            0, tipModel);
-                                                      });
+                                                    deleteTipFromDatabase(index);
                                                     },
                                                     child: const Icon(
                                                         Icons.delete_outline)),
