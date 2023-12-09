@@ -5,7 +5,7 @@ import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
 
 ValueNotifier< List <RandomTips>> randomTipsnotifier = ValueNotifier([]);
 class RandomTipsDb with ChangeNotifier{
- static final tipBoxName = 'Random_tips'; 
+ static const tipBoxName = 'Random_tips'; 
 
  static  Future<void> getTip()async{
   final tipBox = await Hive.openBox<RandomTips>(tipBoxName);

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_sculptor/screens/admin_side/daily_random_tips/daily_tips_screen.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/exercise_display/exercise_screen.dart';
-import 'package:mind_sculptor/screens/admin_side/songs/songs_screen.dart';
+import 'package:mind_sculptor/screens/admin_side/songs/view_song/songs_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/screens/user_side/logIn/log_in_screen.dart';
 

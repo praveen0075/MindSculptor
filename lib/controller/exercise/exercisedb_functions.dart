@@ -10,8 +10,7 @@ class ExerciseDb with ChangeNotifier{
   static Future<void> getExersise() async {
     final dbOfExercise = await Hive.openBox<NewExercises>(excriseDb);     
     exerciseNotifier.value.clear();
-    exerciseNotifier.value = dbOfExercise.values.toList();
-    exerciseNotifier.notifyListeners();
+    exerciseNotifier.value = dbOfExercise.values.toList();exerciseNotifier.notifyListeners();
   }
   
    static Future<bool> addExercise(NewExercises newExercisemodel)async{

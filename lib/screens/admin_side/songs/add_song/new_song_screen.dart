@@ -1,13 +1,15 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:mind_sculptor/controller/songs/songs_db_functions.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mind_sculptor/screens/admin_side/songs/add_song/functions/collect_music_function.dart';
 import 'package:mind_sculptor/widgets/snackbar.dart';
 
-class NewSongAdminScreen extends StatefulWidget {
+class NewSongAdminScreen extends StatefulWidget {  
     const NewSongAdminScreen({super.key});
 
     @override
@@ -17,13 +19,32 @@ class NewSongAdminScreen extends StatefulWidget {
   File? image;
   String? music;
   String? musicTitle;
-
+  bool isPlaying = false;
+  Duration duration = Duration.zero;
+  Duration postion = Duration.zero;
   late Box<Songs> songBox;
-
+  AudioPlayer audioPlayer = AudioPlayer();
   @override
   void initState() {
     super.initState();
-    songBox = Hive.box('songs');
+    SongsDb.getSongs();
+    audioPlayer.onPlayerStateChanged.listen((state) { 
+      setState(() {
+        isPlaying = state == PlayerState.playing;
+      });
+    });
+
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      setState(() {
+        duration = newDuration;
+      });
+    });
+
+    audioPlayer.onPositionChanged.listen((newPostion) {
+      setState(() {
+        postion = newPostion;
+      });
+    });
   }
 
   final TextEditingController musicTitleController = TextEditingController();
@@ -32,40 +53,29 @@ class NewSongAdminScreen extends StatefulWidget {
       setState(() {
           if(pickedImage != null){
           image = File(pickedImage.path);
-      }
+      }  
       });
     }
-
-    void collectMusic() async{
-     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.audio,
-      allowMultiple: false,
-     );
-     if(result != null){
-      setState(() {
-        music = result.files.single.path!;
-      });
-     }
-    }
-
-    void saveMusicToHive()async{
-      musicTitle = musicTitleController.text.trim();
-      if(musicTitle == null){
-        showSnackbar(context,bgColor: Colors.red,text: 'please Add a title');
-      }else if( music == null){
-        showSnackbar(context,bgColor: Colors.red,text: 'please Add a music');
-      }else if (image == null){
-        showSnackbar(context,bgColor: Colors.red,text: 'please Add an image');
-      }else{
-        final songs = Songs(title: musicTitle.toString(), image: image!.path, musicPath:music!);
-        await songBox.add(songs);
-        setState(() {
-         showSnackbar(context,bgColor: Colors.green,text: 'Music is added');
-          image = null;
-        }); 
-        musicTitleController.clear();
-      }
-    }
+void saveMusicToHive() async {
+  musicTitle = musicTitleController.text.trim();
+  if (musicTitle == null) {
+    showSnackbar(context, bgColor: Colors.red, text: 'Please add a title');
+  } else if (music == null) {
+    showSnackbar(context, bgColor: Colors.red, text: 'Please add a music');
+  } else if (image == null) {
+    showSnackbar(context, bgColor: Colors.red, text: 'Please add an image');
+  } else {
+    final song = Songs(title: musicTitle.toString(), image: image!.path, musicPath: music!);
+    await SongsDb.addSong(song);
+    setState(() {
+      showSnackbar(context, bgColor: Colors.green, text: 'Music is added');
+      image = null;
+      SongsDb.getSongs();
+      music = null;
+    });
+    musicTitleController.clear();
+  }
+}
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -97,11 +107,17 @@ class NewSongAdminScreen extends StatefulWidget {
                     child: const Icon(
                       Icons.add,
                       size: 40,
-                    )),
+                    )), 
               ),
               InkWell(
-                onTap: () {
-                 collectMusic();
+                onTap: () async{
+                 String? musicFilePath = await collectMusic();
+                 if(musicFilePath != null){
+                   setState(() {
+                     music = musicFilePath;
+                     audioPlayer.setSourceUrl(music!);
+                   });
+                 }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -134,6 +150,24 @@ class NewSongAdminScreen extends StatefulWidget {
                         hintStyle: TextStyle(color: Colors.black)),
                   ),
                 ),
+              ),
+              Slider(
+                min: 0,
+                max: duration.inSeconds.toDouble(),
+                value: postion.inSeconds.toDouble(), onChanged: (value)async{
+                  final postiton = Duration(seconds: value.toInt());
+                  await audioPlayer.seek(postiton);
+              }),
+              CircleAvatar(
+                radius: 35,
+                child: IconButton(onPressed: ()async{
+                  if(isPlaying){
+                    await audioPlayer.pause();
+                  }else{
+                    await audioPlayer.resume();
+                  }
+                }, icon: isPlaying ? const Icon(Icons.pause):const Icon(Icons.play_arrow),)
+                
               ),
               ElevatedButton(
                 onPressed: () {

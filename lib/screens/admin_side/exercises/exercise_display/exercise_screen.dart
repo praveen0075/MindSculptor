@@ -35,16 +35,18 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
       ),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: tc1, 
+        backgroundColor: tc1,
+        title: const Text('Exercise'), 
+        centerTitle: true,
       ),
       body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [tc1, lg1, lg2],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            colors: [tc1, lg1,lg2],
+            begin: Alignment.topCenter, 
+            end: Alignment.bottomRight,
           ),
         ),
         child: ScrollConfiguration(
@@ -91,8 +93,9 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
+                                        const SizedBox(width: 20,),
                                         Flexible(
-                                          child: Column(crossAxisAlignment:CrossAxisAlignment.center,
+                                          child: Column(crossAxisAlignment:CrossAxisAlignment.start,
                                           mainAxisAlignment:MainAxisAlignment.center,
                                             children: [
                                               Text(
@@ -101,12 +104,10 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18),
-                                                textAlign: TextAlign.center,
                                               ),
                                             sizedBox10,
                                               Text(
                                                 exercise.description,
-                                                textAlign: TextAlign.center,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
