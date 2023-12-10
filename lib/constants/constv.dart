@@ -23,6 +23,13 @@ const sizedBox40 = SizedBox(
   height: 40,
 );
 
+const sizedBox10w = SizedBox(
+  width: 10, 
+);
+const sizedBox20w = SizedBox(
+  width: 20, 
+);
+
 // divider
 
 Widget divider({double? thickness,Color? color}){

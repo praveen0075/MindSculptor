@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 import 'package:mind_sculptor/constants/constv.dart';
-import 'package:mind_sculptor/screens/admin_side/exercises/add_new_exercise/widgets/popup_for_newstep.dart';
+import 'package:mind_sculptor/screens/admin_side/exercises/functions/imagepicker_function.dart';
 import 'package:mind_sculptor/widgets/snackbar.dart';
 
 class NewExerciseScreen extends StatefulWidget {
@@ -20,9 +20,10 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController exerciseInstructionController =
       TextEditingController();
-  File? selectedImage;
-  File? selectedImageForExercise;
+  String? selectedImage;
+  String? selectedImageForExercise;
   String? instructionText;
+  String? titleOfExercise;
   List<String> exerciseSteps = [];
   List<String> exerciseImages = [];
   @override
@@ -34,46 +35,169 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   Future<void> pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedImage != null) {
-        selectedImage = File(pickedImage.path);
-      }
-    });
+
+    if (pickedImage != null) {
+      setState(() {
+        selectedImage = pickedImage.path;
+      });
+    }
   }
 
   Future<void> pickImageForExercise() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedImage != null) {
-        selectedImageForExercise = File(pickedImage.path);
-      }
-    });
+    if (pickedImage != null) {
+      setState(() {
+        selectedImageForExercise = pickedImage.path;
+      });
+    }
   }
 
-  void saveExercisesToHive() async {
-    if (selectedImage != null) {
-      var newExercises = NewExercises(
+  void addExerciseToList() async{
+    instructionText = exerciseInstructionController.text.trim();
+    if(instructionText == null){
+      showSnackbar(context,bgColor: Colors.red,text: 'Text is not added');
+    }else if(selectedImageForExercise == null){
+      showSnackbar(context,bgColor: Colors.red,text: 'Add an image');
+    }else{
+      setState(() {
+         exerciseSteps.add(instructionText!);
+         exerciseImages.add(selectedImageForExercise!);
+      });
+    }
+    exerciseInstructionController.clear();
+    selectedImageForExercise == null;
+  }
+
+  void saveExercisesToHive()async{
+    titleOfExercise = titleTextController.text.trim();
+    if(selectedImage == null){
+      showSnackbar(context,bgColor: Colors.red,text: 'Add image to the exercise card');
+    }else if(titleOfExercise == null){
+      showSnackbar(context,bgColor: Colors.red,text: 'Title is not added');
+    }else{
+       var newExercises = NewExercises(
         exerciseSteps,
         exerciseImages,
         title: titleTextController.text.trim(),
         description: descriptionController.text.trim(),
-        cardImage: selectedImage!.path,
+        cardImage: selectedImage!,
       );
       await ExerciseDb.addExercise(newExercises);
       await ExerciseDb.getExersise();
-    } else {
-      showSnackbar(context, text: 'Add an exercise image', bgColor: Colors.red);
+      showSnackbar(context,bgColor: Colors.green,text: 'saved succesfully');
+      setState(() {
+          exerciseSteps.clear();
+      exerciseImages.clear();
+      titleTextController.clear();
+      selectedImage = null;
+      descriptionController.clear();
+      });
     }
   }
+
+  // void saveExercisesToHive() async {
+  //   if (selectedImage != null) {
+  //     var newExercises = NewExercises(
+  //       exerciseSteps,
+  //       exerciseImages,
+  //       title: titleTextController.text.trim(),
+  //       description: descriptionController.text.trim(),
+  //       cardImage: selectedImage!,
+  //     );
+  //     await ExerciseDb.addExercise(newExercises);
+  //     await ExerciseDb.getExersise();
+  //   } else {
+  //     showSnackbar(context, text: 'Add an exercise image', bgColor: Colors.red);
+  //   }
+  // }
+
+  void editinstruction(int indext,String instruction){
+    exerciseSteps[indext] = instruction;
+  }
+
+  // void editStepsImage(int index, String instructionImage){
+  //   pickImageForExercise();
+  //   setState(() {
+  //     exerciseImages[index] = instructionImage;
+  //   });
+  // }
+
+  void editStepsImage(int index) async {
+  final picker = ImagePicker();
+  final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+  if (pickedImage != null) {
+    setState(() {
+      exerciseImages[index] = pickedImage.path;
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showPopForNewStep(context: context,exerciseStepcontroller: ControllerCallback);
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              actions: [
+                ElevatedButton(onPressed: () {
+                  addExerciseToList();
+                }, child: const Text('Save')),
+                OutlinedButton(
+                    onPressed: () {
+                      exerciseInstructionController.clear();
+                      selectedImageForExercise = null;
+                    },
+                    child: const Text('Clear'))
+              ],
+              elevation: 100,
+              shadowColor: Colors.black,
+              shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              backgroundColor: Colors.white,
+              title: const Text(
+                'Step 1',
+                textAlign: TextAlign.center,
+              ),
+              content: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: TextField(
+                          decoration: const InputDecoration.collapsed(
+                              hintText: 'Type here...'),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          controller: exerciseInstructionController,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              final imagePath = await collectImage();
+                              if (imagePath != null) {
+                                selectedImageForExercise = imagePath;
+                              }
+                            },
+                            child: const Text('Click here to Add Image')),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+          // screenNavigation(context: context,key: const AddInstructionsScreen());
         },
         child: const Icon(Icons.add),
       ),
@@ -82,19 +206,21 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
         backgroundColor: tc1,
         title: const Text('New Exercise'),
         centerTitle: true,
-        actions: const [
+        actions:  [
           Padding(
-            padding:  EdgeInsets.all(8.0),
+            padding:const EdgeInsets.all(8.0),
             child: CircleAvatar(
               backgroundColor: Colors.transparent,
-              child: Icon(Icons.done,color: Colors.white,),
+              child: IconButton(
+                icon: const Icon(Icons.done),
+                onPressed: (){
+                  saveExercisesToHive();
+                  
+                },
+              ),
             ),
           )
         ],
-        // actions: [
-        //   Icon(Icons.done),
-        //   SizedBox(width: 10,)
-        // ],
       ),
       body: Stack(
         children: [
@@ -103,7 +229,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
             width: double.maxFinite,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [tc1, lg1,lg1, lg2],
+                colors: [tc1, lg1, lg1, lg2],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomRight,
               ),
@@ -134,12 +260,14 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                                   height: 70,
                                   width: 70,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey,
                                     image: selectedImage != null
                                         ? DecorationImage(
-                                            image: FileImage(selectedImage!),
-                                            fit: BoxFit.cover)
+                                            image:
+                                                FileImage(File(selectedImage!)),
+                                            fit: BoxFit.cover,
+                                          )
                                         : null,
+                                    color: Colors.grey,
                                   ),
                                   child: InkWell(
                                       onTap: () {
@@ -150,7 +278,8 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                                 ),
                                 Flexible(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
@@ -184,38 +313,64 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                     ),
                   ),
                   divider(color: Colors.black26, thickness: 1),
-                 const Text(
+                  const Text(
                     'Add Instructions',
                     style: TextStyle(color: Colors.white),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child:SizedBox(
-                       height: MediaQuery.of(context).size.height * 0.6, 
-                      child:ListView.separated(itemBuilder: (context, index) =>  Column(
-                        children:  [
-                          const TextField(
-                            decoration: InputDecoration.collapsed(hintText: 'type here.'),
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20,bottom: 20),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              height: 190,
-                              width: 250,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: const Image(image: NetworkImage('https://plus.unsplash.com/premium_photo-1666299536851-b6c011247630?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzN8fG1lZGl0YXRpb258ZW58MHx8MHx8fDA%3D'),fit: BoxFit.cover,))),
-                          )
-                        ],
-                      ), separatorBuilder: (context, index) => sizedBox10, itemCount: 20)
-                      ),
-                    ),
+                    child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        child: ListView.separated(
+                            itemBuilder: (context, index) => Column(
+                                  children: [
+                                    TextField(
+                                      controller: TextEditingController(text: exerciseSteps[index]),
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                          onChanged: (changedValue){
+                                            editinstruction(index, changedValue);
+                                          },
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20, bottom: 20),
+                                      child: Stack(
+                                        children: [
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10)),
+                                            height: 190,
+                                            width: 250,
+                                            child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image(
+                                                    image: FileImage(File(
+                                                        exerciseImages[index])),
+                                                    fit: BoxFit.cover,
+                                                  ))),
+                                                   Positioned(
+                                                    right: 5,
+                                                    bottom: 5,
+                                                    child:CircleAvatar(
+                                                      child: InkWell(
+                                                        onTap: (){
+                                                          editStepsImage(index);
+                                                        },
+                                                        child: const Icon(Icons.edit_outlined)),
+                                                    ))
+                                                ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                            separatorBuilder: (context, index) => sizedBox10,
+                            itemCount: exerciseSteps.length)),
+                  ),
                 ],
               ),
             ),
