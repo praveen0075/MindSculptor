@@ -29,6 +29,12 @@ const sizedBox10w = SizedBox(
 const sizedBox20w = SizedBox(
   width: 20, 
 );
+const sizedBox30w = SizedBox(
+  width: 30,
+);
+const sizedBox40w = SizedBox(
+  width: 40,
+);
 
 // divider
 

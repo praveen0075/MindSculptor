@@ -11,7 +11,7 @@ class ExerciseAdmin extends StatefulWidget {
 
   @override
   State<ExerciseAdmin> createState() => _ExerciseAdminState();
-} 
+}
 
 class _ExerciseAdminState extends State<ExerciseAdmin> {
   @override
@@ -20,9 +20,9 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
     ExerciseDb.getExersise();
   }
 
-  void deletExercise(int index) { 
-    ExerciseDb.deleteExercise(index);
-  } 
+  void deletExercise(String key) {
+    ExerciseDb.deleteExercise(key);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: tc1,
-        title: const Text('Exercise'), 
+        title: const Text('Exercise'),
         centerTitle: true,
       ),
       body: Container(
@@ -44,8 +44,8 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
         width: double.maxFinite,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [tc1, lg1,lg2],
-            begin: Alignment.topCenter, 
+            colors: [tc1, lg1, lg2],
+            begin: Alignment.topCenter,
             end: Alignment.bottomRight,
           ),
         ),
@@ -64,14 +64,14 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                         itemCount: exerciseList.length,
                         itemBuilder: (context, index) {
                           var exercise = exerciseList[index];
+                          String key = exerciseList[index].key??'';
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () {
                                 screenNavigation(
                                     context: context,
-                                    key: EditExerciseScreen(
-                                        exercises: exercise));
+                                    key:  EditExerciseScreen(exercises: exercise,));
                               },
                               child: SizedBox(
                                 height: 150,
@@ -93,10 +93,15 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                        const SizedBox(width: 20,),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
                                         Flexible(
-                                          child: Column(crossAxisAlignment:CrossAxisAlignment.start,
-                                          mainAxisAlignment:MainAxisAlignment.center,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 exercise.title,
@@ -105,7 +110,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18),
                                               ),
-                                            sizedBox10,
+                                              sizedBox10,
                                               Text(
                                                 exercise.description,
                                               ),
@@ -115,11 +120,13 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                                 children: [
                                                   InkWell(
                                                       onTap: () {
-                                                        showDeleteDialog(index, context, () {
-                                                          deletExercise(index);
+                                                        showDeleteDialog(
+                                                            index, context, () {
+                                                          deletExercise(key);
                                                         });
                                                       },
-                                                      child: const Icon(Icons.delete)),
+                                                      child: const Icon(
+                                                    Icons.delete)),
                                                 ],
                                               )
                                             ],

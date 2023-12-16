@@ -100,8 +100,7 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
                               onTap: () {
                                 screenNavigation(
                                   context: context,
-                                  key: AdminPlayMusicScreen(
-                                    indexOfMusic: indexno,
+                                  key: AdminPlayMusicScreen(relaxmusic: relaxmusic, indexOfMusic: indexno,
                                   ),
                                 );
                               },
@@ -126,10 +125,7 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
                                   fontSize: 16,
                                   color: Colors.white),
                             ),
-                            const Text(
-                              '10:10',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                        
                           ],
                         ),
                       ),

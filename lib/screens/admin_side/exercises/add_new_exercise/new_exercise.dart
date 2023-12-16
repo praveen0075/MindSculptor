@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
+import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart'; 
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/functions/imagepicker_function.dart';
@@ -24,10 +24,10 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   String? selectedImageForExercise;
   String? instructionText;
   String? titleOfExercise;
-  List<String> exerciseSteps = [];
-  List<String> exerciseImages = [];
+  List<StepsOfExerciseModel> tempList=[];
+
   @override
-  void initState() {
+  void initState() {                            
     super.initState();
     ExerciseDb.getExersise();
   }
@@ -38,21 +38,21 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
 
     if (pickedImage != null) {
       setState(() {
-        selectedImage = pickedImage.path;
+        selectedImage = File(pickedImage.path).path;
       });
     }
   }
 
-  Future<void> pickImageForExercise() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+  // Future<void> pickImageForExercise() async {
+  //   final picker = ImagePicker();
+  //   final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedImage != null) {
-      setState(() {
-        selectedImageForExercise = pickedImage.path;
-      });
-    }
-  }
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       selectedImageForExercise = pickedImage.path;
+  //     });
+  //   }
+  // }
 
   void addExerciseToList() async{
     instructionText = exerciseInstructionController.text.trim();
@@ -61,9 +61,11 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
     }else if(selectedImageForExercise == null){
       showSnackbar(context,bgColor: Colors.red,text: 'Add an image');
     }else{
+      final StepsOfExerciseModel model=StepsOfExerciseModel(imageOfStep: selectedImageForExercise,stepText: instructionText);
+      tempList.add(model);
       setState(() {
-         exerciseSteps.add(instructionText!);
-         exerciseImages.add(selectedImageForExercise!);
+        //  exerciseSteps.add(instructionText!);
+        //  exerciseImages.add(selectedImageForExercise!);
       });
     }
     exerciseInstructionController.clear();
@@ -77,19 +79,19 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
     }else if(titleOfExercise == null){
       showSnackbar(context,bgColor: Colors.red,text: 'Title is not added');
     }else{
+    
        var newExercises = NewExercises(
-        exerciseSteps,
-        exerciseImages,
         title: titleTextController.text.trim(),
         description: descriptionController.text.trim(),
         cardImage: selectedImage!,
       );
-      await ExerciseDb.addExercise(newExercises);
+      if(tempList.isNotEmpty){
+        await ExerciseDb.addExercise(newExercises,tempList);
       await ExerciseDb.getExersise();
+      } 
       showSnackbar(context,bgColor: Colors.green,text: 'saved succesfully');
       setState(() {
-          exerciseSteps.clear();
-      exerciseImages.clear();
+      tempList.clear();
       titleTextController.clear();
       selectedImage = null;
       descriptionController.clear();
@@ -113,8 +115,8 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   //   }
   // }
 
-  void editinstruction(int indext,String instruction){
-    exerciseSteps[indext] = instruction;
+  void editinstruction(int index,String instruction){
+    tempList[index].stepText = instruction;
   }
 
   // void editStepsImage(int index, String instructionImage){
@@ -130,7 +132,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
 
   if (pickedImage != null) {
     setState(() {
-      exerciseImages[index] = pickedImage.path;
+      tempList[index].imageOfStep = File(pickedImage.path).path;
     });
   }
 }
@@ -325,7 +327,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                             itemBuilder: (context, index) => Column(
                                   children: [
                                     TextField(
-                                      controller: TextEditingController(text: exerciseSteps[index]),
+                                      controller: TextEditingController(text: tempList[index].stepText),
                                       keyboardType: TextInputType.multiline,
                                       maxLines: null,
                                       style:
@@ -350,7 +352,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                                                       BorderRadius.circular(10),
                                                   child: Image(
                                                     image: FileImage(File(
-                                                        exerciseImages[index])),
+                                                        tempList[index].imageOfStep!)),
                                                     fit: BoxFit.cover,
                                                   ))),
                                                    Positioned(
@@ -369,7 +371,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                                   ],
                                 ),
                             separatorBuilder: (context, index) => sizedBox10,
-                            itemCount: exerciseSteps.length)),
+                            itemCount: tempList.length)),
                   ),
                 ],
               ),

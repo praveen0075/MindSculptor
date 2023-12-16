@@ -17,18 +17,17 @@ class NewExercisesAdapter extends TypeAdapter<NewExercises> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NewExercises(
-      (fields[3] as List).cast<String>(),
-      (fields[4] as List).cast<String>(),
+      key: fields[3] as String?,
       title: fields[0] as String,
       description: fields[1] as String,
       cardImage: fields[2] as String,
-    )..timestamp = fields[5] as DateTime;
+    );
   }
 
   @override
   void write(BinaryWriter writer, NewExercises obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -36,11 +35,7 @@ class NewExercisesAdapter extends TypeAdapter<NewExercises> {
       ..writeByte(2)
       ..write(obj.cardImage)
       ..writeByte(3)
-      ..write(obj.steps)
-      ..writeByte(4)
-      ..write(obj.imageSteps)
-      ..writeByte(5)
-      ..write(obj.timestamp);
+      ..write(obj.key);
   }
 
   @override
@@ -50,6 +45,49 @@ class NewExercisesAdapter extends TypeAdapter<NewExercises> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is NewExercisesAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class StepsOfExerciseModelAdapter extends TypeAdapter<StepsOfExerciseModel> {
+  @override
+  final int typeId = 5;
+
+  @override
+  StepsOfExerciseModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return StepsOfExerciseModel(
+      exerciseKey: fields[0] as String?,
+      imageOfStep: fields[2] as String?,
+      stepKey: fields[3] as String?,
+      stepText: fields[1] as String?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, StepsOfExerciseModel obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.exerciseKey)
+      ..writeByte(1)
+      ..write(obj.stepText)
+      ..writeByte(2)
+      ..write(obj.imageOfStep)
+      ..writeByte(3)
+      ..write(obj.stepKey);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is StepsOfExerciseModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

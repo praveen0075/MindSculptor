@@ -1,9 +1,10 @@
+import 'dart:async';
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
+import 'package:mind_sculptor/controller/random_tips/random_tipdb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
-import 'package:mind_sculptor/model/user_model.dart';
 import 'package:mind_sculptor/screens/user_side/journal/journal_write_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 
@@ -14,13 +15,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Box<User> userBox;
-  late Box<RandomTips> tips;
+  // late Box<User> userBox;
+  // late Box<RandomTips> tips;
+  late List <RandomTips> tipsList = [];
+  late Timer timer;
   @override
   void initState() {
     super.initState();
-    userBox = Hive.box('user_details');
-    tips = Hive.box('randomtips');
+    // userBox = Hive.box('user_details');
+    // tips = Hive.box('randomtips');
+    final randomtipsFromDB = RandomTipsDb.getTip();
+  }
+
+  final random = Random();
+
+  void randomTipCollection(){
+
   }
 
   @override
@@ -303,35 +313,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ]),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 150,
-                    width: double.maxFinite,
-                    child: Card(
-                      elevation: 5,
-                      color: const Color.fromARGB(255, 13, 119, 195)
-                          .withOpacity(0.7),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                      child: const Padding(
-                        padding:  EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Padding(
-                            padding:  EdgeInsets.all(8.0),
-                            child: Text(
-                              '',
-                              style:  TextStyle(
-                                  color: Colors.white, fontSize: 17),
-                              textAlign: TextAlign.center,
+               Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 150,
+                          width: double.maxFinite,
+                          child: Card(
+                            elevation: 5,
+                            color: const Color.fromARGB(255, 13, 119, 195)
+                                .withOpacity(0.7),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                            child:  Padding(
+                              padding:  const EdgeInsets.all(10.0),
+                              child: Center(
+                                child: Padding(
+                                  padding:  const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '',
+                                    style:  const TextStyle(
+                                        color: Colors.white, fontSize: 17),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Padding(
+                      Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     height: 150,
@@ -342,13 +354,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           .withOpacity(0.7),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      child: const Padding(
+                      child:  Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              '"Take a few minutes each day to focus on your breath."',
+                              '',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
@@ -358,8 +370,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                ),
-                Padding(
+                ), Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     height: 150,
@@ -370,13 +381,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           .withOpacity(0.7),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      child: const Padding(
+                      child:  Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              '"Take a few minutes each day to focus on your breath."',
+                              '',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
@@ -387,6 +398,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+
+                    ],
+                
+      
+                ),
+               
               ],
             ),
           ),

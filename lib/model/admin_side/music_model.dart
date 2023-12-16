@@ -6,11 +6,12 @@ part 'music_model.g.dart';
 @HiveType(typeId: 4)
 class Songs{
   @HiveField(0)
-  final String title;
+   String title;
   @HiveField(1)
-  final String image;
+   String image;
   @HiveField(2)
-  final String musicPath;
-
-  Songs({required this.title, required this.image, required this.musicPath});
+   String musicPath;
+  @HiveField(3) 
+  String? musicKey;
+  Songs({this.musicKey,required this.title, required this.image, required this.musicPath});
 }
