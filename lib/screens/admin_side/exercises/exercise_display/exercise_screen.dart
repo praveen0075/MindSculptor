@@ -29,7 +29,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          screenNavigation(context: context, key: const NewExerciseScreen());
+          screenNavigation(context: context, screen: const NewExerciseScreen());
         },
         child: const Icon(Icons.add),
       ),
@@ -71,7 +71,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                               onTap: () {
                                 screenNavigation(
                                     context: context,
-                                    key:  EditExerciseScreen(exercises: exercise,));
+                                    screen:  EditExerciseScreen(exercises: exercise,));
                               },
                               child: SizedBox(
                                 height: 150,

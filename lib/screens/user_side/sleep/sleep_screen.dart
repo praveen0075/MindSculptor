@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:mind_sculptor/controller/songs/songs_db_functions.dart';
+import 'package:mind_sculptor/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
 import 'package:mind_sculptor/screens/user_side/sleep/sleep_music_screen.dart';
 
 class SleepScreen extends StatefulWidget {
@@ -23,6 +27,13 @@ class _SleepScreenState extends State<SleepScreen> {
     "7 min music",
     "20 min music",
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SongsDb.getSongs();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,46 +112,60 @@ class _SleepScreenState extends State<SleepScreen> {
             Expanded(            
                   child: ScrollConfiguration(
                     behavior: const ScrollBehavior().copyWith(overscroll: false),
-                    child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 8,),
-                        itemCount: 4,
-                        itemBuilder: ((context, index) {
-                          return InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SleepMusicScreen(),));
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.all(10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(13),
-                                    child: Container(
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(13)
-                                      ),
-                                      child: Image.asset("assets/images/beard man sleep.jpg",fit: BoxFit.cover,),
-                                    ),
+                    child: ValueListenableBuilder(
+                      valueListenable: songNotifier,
+                      builder: (context, musicList, child) {
+                        return  GridView.builder(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 8,),
+                          itemCount: musicList.length,
+                          itemBuilder: ((context, index) {
+                            var relaxmusic = musicList[index];
+                            return Card(
+                    color: Colors.white.withOpacity(0.1),
+                    child: Stack(children: [
+                      Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                               screenNavigation(context: context,screen: SleepMusicScreen(songsModel:relaxmusic,));
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(13),
+                                child: Container(
+                                  width: double.maxFinite,
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(13)),
+                                  child: Image.file(
+                                    File(relaxmusic.image),
+                                    fit: BoxFit.cover,
                                   ),
-                                   Padding(
-                                    padding:  const EdgeInsets.only(left: 10),
-                                    child: Text(musics[index],style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white),),
-                                  ),
-                                   Padding(
-                                    padding:  const EdgeInsets.only(left: 10),
-                                    child: Text(musicDuration[index],style: const TextStyle(color: Colors.white),),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
-                          );
-                        })),
+                            Text(
+                              relaxmusic.title,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.white),
+                            ),
+                        
+                          ],
+                        ),
+                      ),
+                     
+                    ]),
+                  );
+                          }));
+                      },
+                    ),
                   ),
                 ),
           ],
@@ -155,3 +180,37 @@ class _SleepScreenState extends State<SleepScreen> {
 //       return child;
 //     }
 // }
+
+// InkWell(
+//                               onTap: (){
+//                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const SleepMusicScreen(),));
+//                               },
+//                               child: Container(
+//                                 margin: const EdgeInsets.all(10),
+//                                 child: Column(
+//                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     ClipRRect(
+//                                       borderRadius: BorderRadius.circular(13),
+//                                       child: Container(
+//                                         height: 120,
+//                                         decoration: BoxDecoration(
+//                                           color: Colors.blue,
+//                                           borderRadius: BorderRadius.circular(13)
+//                                         ),
+//                                         child: Image.file(File(relaxmusic.image)),
+//                                       ),
+//                                     ),
+//                                      Padding(
+//                                       padding:  const EdgeInsets.only(left: 10),
+//                                       child: Text(relaxmusic.title,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white),),
+//                                     ),
+//                                     //  Padding(
+//                                     //   padding:  const EdgeInsets.only(left: 10),
+//                                     //   child: Text(musicDuration[index],style: const TextStyle(color: Colors.white),),
+//                                     // )
+//                                   ],
+//                                 ),
+//                               ),
+//                             );

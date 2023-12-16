@@ -100,7 +100,7 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
                               onTap: () {
                                 screenNavigation(
                                   context: context,
-                                  key: AdminPlayMusicScreen(relaxmusic: relaxmusic, indexOfMusic: indexno,
+                                  screen: AdminPlayMusicScreen(relaxmusic: relaxmusic, indexOfMusic: indexno,
                                   ),
                                 );
                               },

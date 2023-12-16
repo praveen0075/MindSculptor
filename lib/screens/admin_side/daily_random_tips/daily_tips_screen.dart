@@ -101,7 +101,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                                       child: Row(
                                         children: [
                                           Flexible(
-                                              child: Padding(
+                                              child: Padding( 
                                             padding: const EdgeInsets.all(8.0),
                                             child: Center(child: Text(randomtips.tip.toString(),textAlign: TextAlign.center,)),
                                           )),    

@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,20 +17,31 @@ class _HomeScreenState extends State<HomeScreen> {
   // late Box<User> userBox;
   // late Box<RandomTips> tips;
   late List <RandomTips> tipsList = [];
-  late Timer timer;
+  // List<String> tipList = []; 
+  // late Timer timer;
   @override
   void initState() {
     super.initState();
     // userBox = Hive.box('user_details');
     // tips = Hive.box('randomtips');
-    final randomtipsFromDB = RandomTipsDb.getTip();
-  }
-
-  final random = Random();
-
-  void randomTipCollection(){
+    // final randomtipsFromDB = RandomTipsDb.getTip();
+    //  getRandomTips();
 
   }
+
+void getRandomTips(){
+    RandomTipsDb.getTip().then((tips) {
+      setState(() {
+        // tipsList = tips;
+      });
+    });
+}
+
+  String? tipvariable1 ;
+  String? tipsvariable2;
+  String? tipsvariable3;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -331,8 +341,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Center(
                                 child: Padding(
                                   padding:  const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '',
+                                  child: Text('',
+                                    // randomTips[0],
+                                    // randomTips.isNotEmpty ? randomTips[0]: 'akjsddkfhkahsdfkhkalshdfkhsadklh',
                                     style:  const TextStyle(
                                         color: Colors.white, fontSize: 17),
                                     textAlign: TextAlign.center,
@@ -361,6 +372,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               '',
+                              // randomTips.isNotEmpty ? randomTips[1]:'jkahdfkkahfiawueopuaihfdhadfhdkfkahkfhla',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
@@ -387,7 +399,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              '',
+                            '',
+                              // randomTips.isNotEmpty? randomTips[3]:'aksdhfkhashfdklhaskdlfhklahsdfklhasldfhlahsdfhalkhsdflhadfhlj',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
@@ -401,7 +414,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     ],
                 
-      
                 ),
                
               ],

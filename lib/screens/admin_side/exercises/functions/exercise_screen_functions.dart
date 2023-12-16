@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
- screenNavigation({context, key}) {
+ screenNavigation({context, screen}) {
   return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  key,
+        builder: (context) =>  screen,
       ));
 }
 //deleteDialoguebox functon //

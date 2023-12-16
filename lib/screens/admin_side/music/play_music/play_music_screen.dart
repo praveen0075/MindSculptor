@@ -277,7 +277,7 @@ class _AdminPlayMusicScreenState extends State<AdminPlayMusicScreen> {
   String? editedMusicTitle;
   String? editedImage;
   String? editedMusic;
-  late AudioPlayer audioPlayer;
+  late AudioPlayer audioPlayer; 
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   bool isPlaying = false; 
