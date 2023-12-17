@@ -12,7 +12,7 @@ Widget appTextField({
 }) 
 {
   return  SizedBox(
-    height: 100,
+    // height: 100,
     child: Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(radi!)),side: const BorderSide(style: BorderStyle.solid,width: 2)),

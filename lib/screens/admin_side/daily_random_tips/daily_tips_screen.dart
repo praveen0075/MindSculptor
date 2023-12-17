@@ -5,7 +5,6 @@ import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/widgets/buttons.dart';
 import 'package:mind_sculptor/widgets/textfields.dart';
 
-
 class DailyTipsAdminScreen extends StatefulWidget {
   const DailyTipsAdminScreen({super.key});
 
@@ -15,23 +14,25 @@ class DailyTipsAdminScreen extends StatefulWidget {
 
 class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
   final _tip = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
     RandomTipsDb.getTip();
   }
-    void deleteTipFromDatabase(int index){
-    RandomTipsDb.deletTip(index); 
+
+  void deleteTipFromDatabase(int index) {
+    RandomTipsDb.deletTip(index);
   }
-    void addTipToDatabase()async {
+
+  void addTipToDatabase() async {
     final String tip = _tip.text.trim();
-    if(tip.isNotEmpty){
-       RandomTips tipValue = RandomTips(tip);
-       await RandomTipsDb.addTip(tipValue);
-       await RandomTipsDb.getTip();
-       _tip.clear();
-    }else{
+    if (tip.isNotEmpty) {
+      RandomTips tipValue = RandomTips(tip);
+      await RandomTipsDb.addTip(tipValue);
+      await RandomTipsDb.getTip();
+      _tip.clear();
+    } else {
       return;
     }
   }
@@ -64,69 +65,89 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
                   txtcntrlr: _tip,
                   iconClr: const Color.fromARGB(255, 213, 195, 28),
                   fcolor: Colors.white,
-                  fieldradi: 20,  
+                  fieldradi: 20,
                   hint: 'Tip',
                   icon: Icons.tips_and_updates,
                   radi: 20,
-                  conntentpadding: const EdgeInsets.symmetric(vertical: 36)
-                  ),
+                  conntentpadding: const EdgeInsets.symmetric(vertical: 36),),
             ),
-            ButtonClass(cradius: 10,height: 40,onpress: (){ 
-             addTipToDatabase();
-            },text: 'Add tip',width: 100,bgColor: const MaterialStatePropertyAll(tc1)),
+            ButtonClass(
+                cradius: 10,
+                height: 40,
+                onpress: () {
+                  addTipToDatabase();
+                },
+                text: 'Add tip',
+                width: 100,
+                bgColor: const MaterialStatePropertyAll(tc1)),
             Expanded(
               child: ValueListenableBuilder(
                 valueListenable: randomTipsnotifier,
                 builder: (context, box, _) {
-                  return ScrollConfiguration(
-                    behavior: const ScrollBehavior().copyWith(overscroll: false),
-                    child: ListView.builder(
-                    itemCount: box.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var randomtips = box[index];  
-                        return ListTile(
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                  height: 125,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    elevation: 10,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          Flexible(
-                                              child: Padding( 
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Center(child: Text(randomtips.tip.toString(),textAlign: TextAlign.center,)),
-                                          )),    
-                                        ],
+                  if (box.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No tips added!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  } else {
+                    return ScrollConfiguration(
+                      behavior:
+                          const ScrollBehavior().copyWith(overscroll: false),
+                      child: ListView.builder(
+                        itemCount: box.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var randomtips = box[index];
+                          return ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    height: 125,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      elevation: 10,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                                child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Center(
+                                                  child: Text(
+                                                randomtips.tip.toString(),
+                                                textAlign: TextAlign.center,
+                                              )),
+                                            )),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                   Positioned(
+                                  Positioned(
                                     bottom: 10,
                                     right: 10,
-                                     child: InkWell(
-                                                    onTap: () {
-                                                    deleteTipFromDatabase(index);
-                                                    },
-                                                    child: const Icon(
-                                                        Icons.delete_outline)),
-                                   )
-                              ],
+                                    child: InkWell(
+                                        onTap: () {
+                                          deleteTipFromDatabase(index);
+                                        },
+                                        child:
+                                            const Icon(Icons.delete_outline)),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
+                          );
+                        },
+                      ),
+                    );
+                  }
                 },
               ),
             ),

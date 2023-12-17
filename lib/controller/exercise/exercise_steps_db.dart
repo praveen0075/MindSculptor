@@ -16,7 +16,7 @@ class ExecriseStepsDb with ChangeNotifier{
         ..stepKey = DateTime.now().millisecondsSinceEpoch.toString();
       await db.put(model.stepKey,model);
     }
-    print(db.values.length);
+    // print(db.values.length);
   }
 
   static Future<void> getStepsOfExcerise(String? key)async{
@@ -35,7 +35,7 @@ class ExecriseStepsDb with ChangeNotifier{
     final exSteps = await Hive.openBox<StepsOfExerciseModel>(dbName);
     // String key = updatedStep.stepKey??'';
     exSteps.put(updatedStep.stepKey, updatedStep);
-    print('the key for updation is ${updatedStep.stepKey}');
+    // print('the key for updation is ${updatedStep.stepKey}');
     getStepsOfExcerise(updatedStep.exerciseKey);
     stepsListNotifer.notifyListeners();
   }
@@ -44,20 +44,7 @@ class ExecriseStepsDb with ChangeNotifier{
     final exstep = await Hive.openBox<StepsOfExerciseModel>(dbName);
     await exstep.delete(stepkey);
   }
-  //     static Future<void> deleteExercise(String? key) async {
-  //   final db = await Hive.openBox<NewExercises>(excriseDb);
-  //   await db.delete(key);
-  //    print('the key of deleting a exercise is $key');
-  //   await getExersise();
-  // }
 }
 
-  // static Future<void> updateExerciseSteps(StepsOfExerciseModel updatedStep,String? key)async{
-  //   final exSteps = await Hive.openBox<StepsOfExerciseModel>(dbName);
-  //   // String key = updatedStep.stepKey??'';
-  //   exSteps.put(key, updatedStep);
-  //   print('the key for updation is $key');
-  //   getStepsOfExcerise(key);
-  //   stepsListNotifer.notifyListeners();
-  // }
+
 

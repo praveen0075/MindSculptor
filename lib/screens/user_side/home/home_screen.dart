@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:mind_sculptor/controller/random_tips/random_tipdb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
 import 'package:mind_sculptor/screens/user_side/journal/journal_write_screen.dart';
@@ -14,33 +15,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // late Box<User> userBox;
-  // late Box<RandomTips> tips;
+
   late List <RandomTips> tipsList = [];
-  // List<String> tipList = []; 
-  // late Timer timer;
+
   @override
   void initState() {
     super.initState();
-    // userBox = Hive.box('user_details');
-    // tips = Hive.box('randomtips');
-    // final randomtipsFromDB = RandomTipsDb.getTip();
-    //  getRandomTips();
+    openHiveBox();
 
   }
 
-void getRandomTips(){
-    RandomTipsDb.getTip().then((tips) {
-      setState(() {
-        // tipsList = tips;
-      });
-    });
+
+void openHiveBox() async {
+  if (!Hive.isBoxOpen('Random_tips')) {
+    await Hive.openBox<RandomTips>('Random_tips'); // Open the Hive box if it's not already open
+  }
+  // getHiveTipData();
+  RandomTipsDb.getTip();
 }
-
   String? tipvariable1 ;
-  String? tipsvariable2;
-  String? tipsvariable3;
-
+  String? tipvariable2;
+  String? tipvariable3;
 
 
   @override
@@ -341,7 +336,7 @@ void getRandomTips(){
                               child: Center(
                                 child: Padding(
                                   padding:  const EdgeInsets.all(8.0),
-                                  child: Text('',
+                                  child: Text(tipvariable1??"Be present in this moment; it's the only one that truly exists.",
                                     // randomTips[0],
                                     // randomTips.isNotEmpty ? randomTips[0]: 'akjsddkfhkahsdfkhkalshdfkhsadklh',
                                     style:  const TextStyle(
@@ -366,15 +361,15 @@ void getRandomTips(){
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       child:  Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              '',
+                              tipvariable2??"Train your mind to see the good in every situation.",
                               // randomTips.isNotEmpty ? randomTips[1]:'jkahdfkkahfiawueopuaihfdhadfhdkfkahkfhla',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
+                                  const TextStyle(color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -394,15 +389,15 @@ void getRandomTips(){
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       child:  Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding:const EdgeInsets.all(8.0),
                             child: Text(
-                            '',
+                            tipvariable3??"Peace begins with a mindful breath.",
                               // randomTips.isNotEmpty? randomTips[3]:'aksdhfkhashfdklhaskdlfhklahsdfklhasldfhlahsdfhalkhsdflhadfhlj',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
+                                 const TextStyle(color: Colors.white, fontSize: 17),
                               textAlign: TextAlign.center,
                             ),
                           ),

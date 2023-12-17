@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/edit_exerise/edit_exercise_screen.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/add_new_exercise/new_exercise.dart';
@@ -10,7 +11,7 @@ class ExerciseAdmin extends StatefulWidget {
   const ExerciseAdmin({super.key});
 
   @override
-  State<ExerciseAdmin> createState() => _ExerciseAdminState();
+  State<ExerciseAdmin> createState() => _ExerciseAdminState();  
 }
 
 class _ExerciseAdminState extends State<ExerciseAdmin> {
@@ -36,7 +37,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: tc1,
-        title: const Text('Exercise'),
+        title: Text('Exercises',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
         centerTitle: true,
       ),
       body: Container(
@@ -59,13 +60,16 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                   child: ValueListenableBuilder(
                     valueListenable: exerciseNotifier,
                     builder: (context, exerciseList, _) {
+                      if(exerciseList.isEmpty){
+                        return const Center(child: Text('No exercises available!',style: TextStyle(color: Colors.white,fontSize: 17),));
+                      }else{
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: exerciseList.length,
                         itemBuilder: (context, index) {
                           var exercise = exerciseList[index];
                           String key = exerciseList[index].key??'';
-                          return Padding(
+                          return  Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () {
@@ -85,12 +89,15 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          height: 70,
-                                          width: 70,
-                                          child: Image.file(
-                                            File(exercise.cardImage),
-                                            fit: BoxFit.cover,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: SizedBox(
+                                            height: 70,
+                                            width: 70,
+                                            child: Image.file(
+                                              File(exercise.cardImage),
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -141,6 +148,7 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                           );
                         },
                       );
+                      }
                     },
                   ),
                 ),

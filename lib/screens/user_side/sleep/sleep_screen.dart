@@ -30,7 +30,6 @@ class _SleepScreenState extends State<SleepScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SongsDb.getSongs();
   }
@@ -115,6 +114,9 @@ class _SleepScreenState extends State<SleepScreen> {
                     child: ValueListenableBuilder(
                       valueListenable: songNotifier,
                       builder: (context, musicList, child) {
+                        if(musicList.isEmpty){
+                          return const Center(child: Text('No Music Available!',style: TextStyle(color: Colors.white),),);
+                        }else{
                         return  GridView.builder(
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -163,7 +165,7 @@ class _SleepScreenState extends State<SleepScreen> {
                      
                     ]),
                   );
-                          }));
+                          }));}
                       },
                     ),
                   ),
@@ -174,43 +176,3 @@ class _SleepScreenState extends State<SleepScreen> {
     );
   }
 }
-// class NoScrollShade extends ScrollBehavior{
-//   Widget buildViewportChrome(
-//     BuildContext context,Widget child,AxisDirection axisDirection){
-//       return child;
-//     }
-// }
-
-// InkWell(
-//                               onTap: (){
-//                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const SleepMusicScreen(),));
-//                               },
-//                               child: Container(
-//                                 margin: const EdgeInsets.all(10),
-//                                 child: Column(
-//                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   children: [
-//                                     ClipRRect(
-//                                       borderRadius: BorderRadius.circular(13),
-//                                       child: Container(
-//                                         height: 120,
-//                                         decoration: BoxDecoration(
-//                                           color: Colors.blue,
-//                                           borderRadius: BorderRadius.circular(13)
-//                                         ),
-//                                         child: Image.file(File(relaxmusic.image)),
-//                                       ),
-//                                     ),
-//                                      Padding(
-//                                       padding:  const EdgeInsets.only(left: 10),
-//                                       child: Text(relaxmusic.title,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white),),
-//                                     ),
-//                                     //  Padding(
-//                                     //   padding:  const EdgeInsets.only(left: 10),
-//                                     //   child: Text(musicDuration[index],style: const TextStyle(color: Colors.white),),
-//                                     // )
-//                                   ],
-//                                 ),
-//                               ),
-//                             );

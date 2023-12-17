@@ -14,20 +14,10 @@ Future<String>  collectMusic() async{
      }
      return "path didn't get";
     }on Exception catch (e) {
-      print("the error is here $e");
+      // print("the error is here $e");
       return "the error$e";
     } catch(e){
-     print("the catched error is $e");
+    //  print("the catched error is $e");
      return "the error$e";
     }
     }  
-
-//     Future<String?> collectImage()async{
-//   final result =await ImagePicker().pickImage(source: ImageSource.gallery);
-//   if(result != null){
-//     final pickedImagePath = File(result.path);
-//     return pickedImagePath.path;
-//   }else{
-//     return null;
-//   }
-// }

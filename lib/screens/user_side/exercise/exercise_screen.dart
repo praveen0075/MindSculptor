@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
-import 'package:mind_sculptor/screens/user_side/exercise/breathing_exercises.dart';
+import 'package:mind_sculptor/screens/user_side/exercise/exercise_displaye_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 
 class ExerciseScreen extends StatefulWidget {
@@ -16,13 +17,19 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ExerciseDb.getExersise();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: tc1),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: tc1,
+        title: Text('Exercises',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
+      ),
       body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
@@ -38,6 +45,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           child: ValueListenableBuilder(
             valueListenable: exerciseNotifier,
             builder: (context, exerciseList, child) {
+              if(exerciseList.isEmpty){
+                return const Center(child: Text('No Exercises Available!',style: TextStyle(color: Colors.white),),);
+              }else{
               return  ListView.builder(
               shrinkWrap: true,
               itemCount: exerciseList.length,
@@ -61,12 +71,15 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          height: 70,
-                                          width: 70,
-                                          child: Image.file(
-                                            File(exercise.cardImage),
-                                            fit: BoxFit.cover,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: SizedBox(
+                                            height: 70,
+                                            width: 70,
+                                            child: Image.file(
+                                              File(exercise.cardImage),
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -103,6 +116,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           );
               },
             );
+              }
             },
           ),
         ),

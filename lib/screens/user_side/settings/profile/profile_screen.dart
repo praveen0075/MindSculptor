@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                child: Column(
                 children: [
                   const SizedBox(height: 15,),
-                  appTextField(fcolor: Colors.white,fieldradi: 20,radi: 15,hint: "USERNAME",icon: Icons.person),
+                  appTextField(fcolor: Colors.white,fieldradi: 20,radi: 15,hint: "USERNAME",icon: Icons.person,),
                   const SizedBox(height: 15,),
                   appTextField(fcolor: Colors.white,fieldradi: 20,radi: 15,hint: "praveepravi27@gmail.com",icon: Icons.email_outlined),
                   const SizedBox(height: 15,),

@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/controller/songs/songs_db_functions.dart';
@@ -156,10 +154,20 @@ class _SleepMusicScreenState extends State<SleepMusicScreen> {
                           const SizedBox(
                             width: 30,
                           ),
-                          const Icon(
-                            CupertinoIcons.backward_end_fill,
-                            color: Colors.white,
-                          ),
+                         Column(
+                                   children: [
+                                     IconButton(
+                                     icon: const Icon(Icons.arrow_back_ios_new_sharp,size: 35,color: Colors.white,),
+                                     onPressed: () {
+                                       audioPlayer.seek(Duration(seconds: position.inSeconds - 10));
+                                       setState(() {
+                                         
+                                       });
+                                     },
+                                ),
+                                const Text('10 sec',style: TextStyle(color: Colors.white),)
+                                   ],
+                                 ),
                           Container(
                             height: 55,
                             width: 55,
@@ -180,10 +188,20 @@ class _SleepMusicScreenState extends State<SleepMusicScreen> {
                                     icon:isPlaying ? const Icon(Icons.pause):const Icon(Icons.play_arrow) ,
                                   ),
                           ),
-                          const Icon(
-                            CupertinoIcons.forward_end_fill,
-                            color: Colors.white,
-                          ),
+                          Column(
+                                   children: [
+                                     IconButton(
+                                     icon: const Icon(Icons.arrow_forward_ios_outlined,size: 35,color: Colors.white,),
+                                     onPressed: () {
+                                       audioPlayer.seek(Duration(seconds: position.inSeconds + 10));
+                                       setState(() {
+                                         
+                                       });
+                                     },
+                                ),
+                                const Text('10 sec',style: TextStyle(color: Colors.white),)
+                                   ],
+                                 ),
                           const SizedBox(
                             width: 30,
                           ),

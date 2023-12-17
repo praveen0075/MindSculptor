@@ -1,9 +1,4 @@
 
-// import 'package:flutter/material.dart';
-// import 'package:mind_sculptor/screens/user_side/onboarding/on_boarding_screen.dart';
-// import 'package:mind_sculptor/widgets/snackbar.dart';
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? validateUsername(String? value) {
@@ -36,12 +31,6 @@ String? validatePassword(String? value) {
     return null;
   }
 }
-
-  // delaySignInScreen(context) async{
-  //   await showSnackBar(context,clr: Colors.green,secnd: const Duration(milliseconds: 5),text: 'Success',txtColor: Colors.white);
-  //   await Future.delayed(const Duration(seconds: 1));
-  //    Navigator.pushReplacement(context, MaterialPageRoute(builder:  (context) => const OnBoardingScreen(),));
-  // }
 
   void userAlreadyExist()async{
     final sharedpref = await SharedPreferences.getInstance();

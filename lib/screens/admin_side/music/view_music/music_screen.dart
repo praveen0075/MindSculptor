@@ -79,6 +79,9 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
         child: ValueListenableBuilder(
           valueListenable: songNotifier,
           builder: (context, songList, child){
+            if(songList.isEmpty){
+              return const Center(child: Text('No music available!',style: TextStyle(color: Colors.white),));
+            }else{
             return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -141,7 +144,7 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
                       ),
                     ]),
                   );
-                }));
+                }));}
           },
         ),
       ),
@@ -149,118 +152,3 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
   }
 }
 
-
-// ListView.separated(
-//                   separatorBuilder: (context, index) => sizedBox10,
-//                   physics: const NeverScrollableScrollPhysics(),
-//                   shrinkWrap: true,
-//                   itemCount: songList.length,
-//                   itemBuilder: (context, index){
-//                     var relaxmusic = songList[index];
-//                     return Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: InkWell(
-//                         onTap: (){
-//                           // showDialogueForEditMusic(context);
-//                           Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminPlayMusicScreen(),));
-//                         },
-//                         child: Container(
-//                           height: 80,
-//                           decoration: BoxDecoration(
-//                             color: Colors.white38.withOpacity(0.2),
-//                             borderRadius: BorderRadius.circular(10)
-//                           ),
-//                           padding: const EdgeInsets.symmetric(horizontal: 20),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                             children: [
-//                               ClipRRect(
-//                                 borderRadius: BorderRadius.circular(15.0),
-//                                 child: Image.file(File(relaxmusic.image),height: 50,width: 50,fit: BoxFit.cover,),
-//                               ),
-//                               sizedBox20w,
-//                                Expanded(
-//                                 child: Column(
-//                                   mainAxisAlignment: MainAxisAlignment.center,
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   children: [
-//                                     Text(relaxmusic.title,style:const TextStyle(color:Colors.white,fontSize:17,fontWeight: FontWeight.bold),),
-//                                   ],
-//                                 ),
-//                               ),
-//                                Row(
-//                                 children: [
-//                                   InkWell(
-//                                     onTap: () => showDelteDialog(index) ,
-//                                     child: const Icon(Icons.delete_outline,color: Colors.white,)),
-//                                   // Icon(Icons.edit_outlined,color: Colors.white,)
-//                                 ],
-//                               )
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     );
-//                 },);
-
-
-
-   // child: Column(
-            //   children: [
-            //     Expanded(
-            //         child: ValueListenableBuilder(
-            //           valueListenable: songNotifier,
-            //           builder: (context,box,_){
-            //             return GridView.builder(
-            //               gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
-            //                   crossAxisCount: 2,
-            //                   crossAxisSpacing: 8,),
-            //               itemCount: box.length, 
-            //               itemBuilder: ((context, index) {
-            //                 var song = box[index];
-            //                 return Container(
-            //                   width: double.maxFinite,
-            //                   margin: const EdgeInsets.all(10),
-            //                   child: Column(
-            //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                     crossAxisAlignment: CrossAxisAlignment.start,
-            //                     children: [
-            //                       ClipRRect(
-            //                         borderRadius: BorderRadius.circular(13),
-            //                         child: Container(
-            //                           height: 120,
-            //                           width: double.maxFinite,
-            //                           decoration: BoxDecoration(
-            //                             color: Colors.blue,
-            //                             borderRadius: BorderRadius.circular(13),
-            //                           ),
-            //                           child: Image.file(File(song.image),fit: BoxFit.cover,)
-            //                         ),
-            //                       ),
-            //                         Padding(
-            //                         padding: const EdgeInsets.only(left: 7),
-            //                           child: Text(song.title,style:const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white),),
-            //                         ),
-            //                          Padding(
-            //                         padding: const  EdgeInsets.only(left: 7),
-            //                         child: Row(
-            //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                           children: [
-            //                             const Text('6:06',style: TextStyle(color: Colors.white),),
-            //                              InkWell(
-            //                               onTap: (){
-            //                                 showDelteDialog(index);
-            //                               },
-            //                               child: const Icon(Icons.delete_outline,color: Colors.white))
-            //                           ],
-            //                         ),
-            //                       )
-            //                     ],
-            //                   ),
-            //                 );
-            //               }));
-            //           },
-            //         ),
-            //       ),
-            //   ],
-            // ),

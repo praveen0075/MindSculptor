@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/screens/user_side/journal/journal_full_view.dart';
 import 'package:mind_sculptor/screens/user_side/journal/journal_write_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
@@ -21,7 +22,7 @@ class JournalScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: tc1,
         elevation: 0,
-        title: const Text('Journal',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,letterSpacing: 2),),
+        title:  Text('Journal',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
         centerTitle: true,
       ),
       body: Container(
