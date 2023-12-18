@@ -12,15 +12,10 @@ void main()async{
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(RandomTipsAdapter());
-  // Hive.registerAdapter(MusicAdapter());
   Hive.registerAdapter(NewExercisesAdapter());
   Hive.registerAdapter(SongsAdapter());
   Hive.registerAdapter(StepsOfExerciseModelAdapter());
   await Hive.openBox<User>('user_details');
-  // await Hive.openBox<RandomTips>('randomtips');
-  // await Hive.openBox<Music>('sleep_music');
-  // await Hive.openBox<NewExercises>('exercises');
-  // await Hive.openBox<Songs>('songs');
   runApp(const App());
 }
 

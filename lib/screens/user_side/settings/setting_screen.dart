@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mind_sculptor/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
 import 'package:mind_sculptor/screens/user_side/first_screen/first_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
+import 'package:mind_sculptor/screens/user_side/settings/about/about_screen.dart';
+import 'package:mind_sculptor/screens/user_side/settings/privacy%20policy/privacypolicy_screen.dart';
 import 'package:mind_sculptor/screens/user_side/settings/profile/profile_screen.dart';
 import 'package:mind_sculptor/widgets/setting_screen_tiles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +26,7 @@ class SettingScreen extends StatelessWidget {
           children: [
             sizedBox10,
            const  CircleAvatar(
+            backgroundColor: Colors.white,
             backgroundImage: NetworkImage('https://imgs.search.brave.com/F2-JuCznDFyTZacItZl1MFz_oVdn6DBVaT6OBkGRA7o/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAxLzI2LzYxLzEz/LzM2MF9GXzEyNjYx/MTMzN19tOGtjUnRT/NUc3QWhyRnBPUTBX/dWZ4NFBnTDZKNHl4/Zy5qcGc'),
               radius: 50,
             ),
@@ -35,19 +39,19 @@ class SettingScreen extends StatelessWidget {
             sizedBox10,
             InkWell(  
               onTap: () {
-                
+                screenNavigation(context: context,screen: const PrivacyPolicyScreen());
               },
               child: settingsScreenTiles(avatarColor: Colors.orange.shade100,icon: Icons.privacy_tip_outlined,title: "Privacy",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.orange)),
             sizedBox10,
             InkWell(
               onTap: (){
-
+                
               },
               child: settingsScreenTiles(avatarColor: Colors.green.shade100,icon: Icons.share_outlined,title: "Share",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.green)),
             sizedBox10,
             InkWell(
               onTap: (){
-
+                screenNavigation(context: context,screen: const AbooutScreen());
               },
               child: settingsScreenTiles(avatarColor: Colors.purple.shade100,icon:Icons.info_outline,title: "About",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.purple)),
             const Divider(
