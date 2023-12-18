@@ -137,7 +137,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                   borderRadius: BorderRadius.circular(20)),
               backgroundColor: Colors.white,
               title: const Text(
-                'Step 1',
+                'Instruction',
                 textAlign: TextAlign.center,
               ),
               content: Container(

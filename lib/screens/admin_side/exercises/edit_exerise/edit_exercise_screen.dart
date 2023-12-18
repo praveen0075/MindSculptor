@@ -171,6 +171,8 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                                 SizedBox(
                                   width: 250,
                                   child: TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 3,
                                     textAlign: TextAlign.left,
                                     controller: TextEditingController(
                                         text: widget.exercises.description),
@@ -206,127 +208,130 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                       child: ValueListenableBuilder(
                           valueListenable: stepsListNotifer,
                           builder: (context, stepsList, child) {
-                            return ListView.builder(
-                              itemCount: stepsList.length,
-                              itemBuilder: (context, index) {
-                                StepsOfExerciseModel stepListData =
-                                    stepsList[index];
-                                return SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all()),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            TextField(
-                                              textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontFamily: GoogleFonts.publicSans().fontFamily),
-                                              keyboardType:
-                                                  TextInputType.multiline,
-                                              maxLines: null,
-                                              controller: TextEditingController(
-                                                  text: stepListData.stepText,),
-                                              decoration:
-                                                  InputDecoration.collapsed(
-                                                      hintText:
-                                                          'step ${index + 1}'),
-                                              onChanged: (newValue) {
-                                                stepListData.stepText = newValue;
-                                              },
-                                            ),
-                                            sizedBox20,
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: SizedBox(
-                                                height: 170,
-                                                width: 170,
-                                                child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(15),
-                                                  child: Image(
-                                                    image: FileImage(File(
-                                                        stepListData.imageOfStep ??
-                                                            '')),
-                                                    fit: BoxFit.cover,
+                            return ScrollConfiguration(
+                              behavior: const ScrollBehavior().copyWith(overscroll: false),
+                              child: ListView.builder(
+                                itemCount: stepsList.length,
+                                itemBuilder: (context, index) {
+                                  StepsOfExerciseModel stepListData =
+                                      stepsList[index];
+                                  return SingleChildScrollView(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all()),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: [
+                                              TextField(
+                                                textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontFamily: GoogleFonts.publicSans().fontFamily),
+                                                keyboardType:
+                                                    TextInputType.multiline,
+                                                maxLines: null,
+                                                controller: TextEditingController(
+                                                    text: stepListData.stepText,),
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                        hintText:
+                                                            'step ${index + 1}'),
+                                                onChanged: (newValue) {
+                                                  stepListData.stepText = newValue;
+                                                },
+                                              ),
+                                              sizedBox20,
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: SizedBox(
+                                                  height: 170,
+                                                  width: 170,
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(15),
+                                                    child: Image(
+                                                      image: FileImage(File(
+                                                          stepListData.imageOfStep ??
+                                                              '')),
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return AlertDialog(
-                                                            title: const Text(
-                                                                'Delete Exercise'),
-                                                            content: const Text(
-                                                                'Are you sure you want to delete this exercise?'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: const Text(
-                                                                    'Cancel'),
-                                                              ),
-                                                              TextButton(
-                                                                onPressed: () async{
-                                                                  
-                                                                     deleteExerciseStep(
-                                                                      stepListData);
-                                                                 
-                                                                 
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                      showSnackbar(context,bgColor: Colors.red,text: 'deleted successfully');
-                                                                },
-                                                                child: const Text(
-                                                                    'Delete'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                      // showDeleteDialog(
-                                                      //             index, context, () {
-                                                      //                 deleteExerciseStep(stepListData);
-                                                      //         });
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.delete_outline)),
-                                                sizedBox40w,
-                                                sizedBox30w,
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      pickInstructionImage(
-                                                          stepListData);
-                                      
-                                                      // setState(() {
-                                      
-                                                      //   stepListData.imageOfStep = editedInstructionImage;
-                                                      // });
-                                                    },
-                                                    child: const Text(
-                                                        'Change Image?')),
-                                              ],
-                                            )
-                                          ],
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  'Delete Exercise'),
+                                                              content: const Text(
+                                                                  'Are you sure you want to delete this exercise?'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () async{
+                                                                    
+                                                                       deleteExerciseStep(
+                                                                        stepListData);
+                                                                   
+                                                                   
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                        showSnackbar(context,bgColor: Colors.red,text: 'deleted successfully');
+                                                                  },
+                                                                  child: const Text(
+                                                                      'Delete'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                        // showDeleteDialog(
+                                                        //             index, context, () {
+                                                        //                 deleteExerciseStep(stepListData);
+                                                        //         });
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.delete_outline)),
+                                                  sizedBox40w,
+                                                  sizedBox30w,
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        pickInstructionImage(
+                                                            stepListData);
+                                        
+                                                        // setState(() {
+                                        
+                                                        //   stepListData.imageOfStep = editedInstructionImage;
+                                                        // });
+                                                      },
+                                                      child: const Text(
+                                                          'Change Image?')),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             );
                           }),
                     ),

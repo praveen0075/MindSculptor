@@ -89,14 +89,20 @@ class _ExerciseAdminState extends State<ExerciseAdmin> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(15),
-                                          child: SizedBox(
-                                            height: 70,
-                                            width: 70,
-                                            child: Image.file(
-                                              File(exercise.cardImage),
-                                              fit: BoxFit.cover,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(),
+                                            borderRadius: BorderRadius.circular(15)
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(15),
+                                            child: SizedBox(
+                                              height: 70,
+                                              width: 70,
+                                              child: Image.file(
+                                                File(exercise.cardImage),
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),

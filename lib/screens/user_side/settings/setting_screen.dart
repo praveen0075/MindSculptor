@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
 import 'package:mind_sculptor/screens/user_side/first_screen/first_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
@@ -19,7 +20,7 @@ class SettingScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('Settings',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),),
+         title:  Text('Settings',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily,color: Colors.black)),
       ),
       body:  Center(
         child:  Column(
@@ -59,10 +60,24 @@ class SettingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: ()async{
-                final sharedpref = await SharedPreferences.getInstance();
-                await sharedpref.remove('userEntered');
+                showDialog(context: context, builder: (context) {
+                  return AlertDialog(
+                   title: const Text('Log out'),
+                   content: const  Text('Are you sure you want to log out?'),
+                   actions: [
+                    TextButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, child: const Text("Cancel")),
+                    TextButton(onPressed: ()async{
+                      Navigator.pop(context);
+                      final sharedpref = await SharedPreferences.getInstance();
+                      await sharedpref.remove('userEntered');
                 // ignore: use_build_context_synchronously
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const FirstScreen(),), (route) => false);
+                    }, child: const Text("Log out")),
+                   ],
+                  );
+                },);
               },
                 child: settingsScreenTiles(avatarColor: Colors.red.shade100,icon:Icons.logout,title: "LogOut",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.red)),
             const Divider(

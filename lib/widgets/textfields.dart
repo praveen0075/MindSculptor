@@ -41,6 +41,7 @@ Widget textInputFormField(
   return Padding(
     padding: const EdgeInsets.only(left: 12, right: 12),
     child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: txtcontroller,
       validator: validatorFunction,
       obscureText: obscure!,

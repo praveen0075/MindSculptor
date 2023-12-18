@@ -43,45 +43,48 @@ class _ExerciseDisplayScreenState extends State<ExerciseDisplayScreen> {
                 builder: (context, stepList, child) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return sizedBox10;
-                      },
-                    itemCount: stepList.length,
-                    itemBuilder: (context, index) {
-                      StepsOfExerciseModel instructions = stepList[index];
-                      return Card(
-                        elevation: 8,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        child: Container(
-                          decoration: BoxDecoration(
-                           borderRadius: BorderRadius.circular(20)
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: double.maxFinite,
-                                  // child: Text("'step ${index + 1}' : '${instructions.stepText!}'",
-                                  child: Text(instructions.stepText!,
-                                  textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontFamily: GoogleFonts.publicSans().fontFamily))),
-                              ),
-                                sizedBox10,
-                              SizedBox(
-                                 height: 150,
-                                 width: 150,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.file(File(instructions.imageOfStep!),fit: BoxFit.cover,)),
-                              ),
-                              sizedBox20
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                    child: ScrollConfiguration(
+                      behavior: const ScrollBehavior().copyWith(overscroll: false),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return sizedBox10;
+                        },
+                      itemCount: stepList.length,
+                      itemBuilder: (context, index) {
+                        StepsOfExerciseModel instructions = stepList[index];
+                        return Card(
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(15)
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    width: double.maxFinite,
+                                    // child: Text("'step ${index + 1}' : '${instructions.stepText!}'",
+                                    child: Text(instructions.stepText!,
+                                    textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontFamily: GoogleFonts.publicSans().fontFamily))),
                                 ),
+                                  sizedBox10,
+                                SizedBox(
+                                   height: 150,
+                                   width: 150,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.file(File(instructions.imageOfStep!),fit: BoxFit.cover,)),
+                                ),
+                                sizedBox20
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                                  ),
+                    ),
                   );
                 },
               ),
