@@ -4,7 +4,7 @@ import 'package:mind_sculptor/screens/admin_side/daily_random_tips/daily_tips_sc
 import 'package:mind_sculptor/screens/admin_side/exercises/exercise_display/exercise_screen.dart';
 import 'package:mind_sculptor/screens/admin_side/music/view_music/music_screen.dart';
 import 'package:mind_sculptor/constants/constv.dart';
-import 'package:mind_sculptor/screens/user_side/logIn/log_in_screen.dart';
+import 'package:mind_sculptor/screens/authentication/logIn/log_in_screen.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});

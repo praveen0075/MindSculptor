@@ -6,6 +6,7 @@ import 'package:mind_sculptor/controller/exercise/exercisedb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 import 'package:mind_sculptor/constants/constv.dart';
 import 'package:mind_sculptor/screens/admin_side/exercises/functions/imagepicker_function.dart';
+import 'package:mind_sculptor/screens/authentication/widgets/widgets.dart';
 import 'package:mind_sculptor/widgets/snackbar.dart';
 
 class NewExerciseScreen extends StatefulWidget {

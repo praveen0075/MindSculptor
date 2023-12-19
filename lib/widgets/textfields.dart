@@ -29,7 +29,7 @@ Widget appTextField({
               borderRadius: BorderRadius.all(Radius.circular(fieldradi!)),
             ),
           hintText: hint,
-          prefixIcon: Icon(icon,color: iconClr,),
+          // prefixIcon: Icon(icon,color: iconClr,),
         ),
       ),
     ),
