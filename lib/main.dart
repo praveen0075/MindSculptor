@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart'; 
-import 'package:mind_sculptor/constants/theme.dart';
+import 'package:mind_sculptor/controller/constants/theme.dart';
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
 import 'package:mind_sculptor/model/user_model.dart';
-import 'package:mind_sculptor/screens/user_side/splash/splash_screen.dart';
+import 'package:mind_sculptor/view/screens/user_side/splash/splash_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main()async{
