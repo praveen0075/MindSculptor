@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:mind_sculptor/controller/exercise/exercise_steps_db.dart' ;
+import 'package:mind_sculptor/controller/db_functions/exercise/exercise_steps_db.dart' ;
 import 'package:mind_sculptor/model/admin_side/exercise_model.dart';
 
 ValueNotifier<List<NewExercises>> exerciseNotifier = ValueNotifier([]);

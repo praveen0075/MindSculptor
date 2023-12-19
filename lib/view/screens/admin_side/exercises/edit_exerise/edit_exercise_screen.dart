@@ -104,6 +104,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
       body: Center(
         child: Column(
           children: [
+            // EditExerciseCard(exercises: widget.exercises,pickCardImage: pickCardImage,editedImage: editedImage,editedTitle: editedTitle,editedDescription: editedDescription),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(

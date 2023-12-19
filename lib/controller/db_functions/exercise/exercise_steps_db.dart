@@ -14,7 +14,7 @@ class ExecriseStepsDb with ChangeNotifier{
       model
         ..exerciseKey = key
         ..stepKey = DateTime.now().millisecondsSinceEpoch.toString();
-      await db.put(model.stepKey,model);
+      await db.put(model.stepKey,model);  
     }
     // print(db.values.length);
   }
