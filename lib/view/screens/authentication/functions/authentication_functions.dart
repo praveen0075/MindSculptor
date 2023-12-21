@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
 import 'package:mind_sculptor/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,10 +58,10 @@ String? validateLoginPassword(String? value) {
 // check user logged in (login screen)
 
   Future<bool> checkUserExist(
-      String enteredUsername, String enteredPassword,Box userBox) async {
-    var existingUserData = userBox.values.cast<User>().toList();
+      String enteredUsername, String enteredPassword) async {
+    // var existingUserData = userBox.values.cast<User>().toList();
 
-    bool existingUser = existingUserData.any((user) =>
+    bool existingUser = userNotifier.value.any((user) =>
         user.username == enteredUsername && user.password == enteredPassword);
     if (existingUser) {
       SharedPreferences sharedPref = await SharedPreferences.getInstance();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
+import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
 import 'package:mind_sculptor/model/user_model.dart';
 import 'package:mind_sculptor/view/screens/authentication/functions/authentication_functions.dart';
 import 'package:mind_sculptor/view/screens/authentication/logIn/log_in_screen.dart';
@@ -29,12 +30,14 @@ class _SignInScreenState extends State<SignInScreen> {
   String? username;
   String? email;
   String? password;
-  late Box<User> userBox;
+  // bool? existingUser = true;
+  // late Box<User> userBox;
 
   @override
   void initState() {
     super.initState();
-    userBox = Hive.box('user_details');
+    // userBox = Hive.box('user_details');
+    UserDb.getUser();
   }
 
   @override
@@ -84,24 +87,15 @@ class _SignInScreenState extends State<SignInScreen> {
                         width: 370,
                         text: 'Sign Up',
                         onpress: () {
-                          userAlreadyExist();
+                          // userAlreadyExist();
                           final isValidate = _key.currentState?.validate();
                           if (isValidate != null && isValidate) {
-                            userBox.add(User(
-                                username: usernameController.text.trim(),
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim()));
+                            // var newUser = User(username: )
+                            // userBox.add(User(
+                            //     username: usernameController.text.trim(),
+                            //     email: emailController.text.trim(),
+                            //     password: passwordController.text.trim()));
                             userAlreadyExist();
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OnBoardingScreen(),
-                                ));
-                            usernameController.clear();
-                            emailController.clear();
-                            passwordController.clear();
-                            conformPasswordController.clear();
                           }
                         },
                       ),
@@ -118,7 +112,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             text: 'ALREADY HAVE AN ACCOUNT?'),
                         GestureDetector(
                           child: signUpOrLoginText(text: ' LOG IN'),
-                          onTap: ()=>pushReplacementNavigator(context: context,screenName: const LogInScreen()),
+                          onTap: () => pushReplacementNavigator(
+                              context: context,
+                              screenName: const LogInScreen()),
                         )
                       ],
                     )
@@ -131,14 +127,33 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-  void userAlreadyExist() {
+
+  void userAlreadyExist() async {
     final String enteredUsername = usernameController.text.trim();
     final String enteredEmail = emailController.text.trim();
+    final String enteredPassword = passwordController.text.trim();
 
-    final userExists = userBox.values.any((user) =>
+    final userExists = userNotifier.value.any((user) =>
         user.username == enteredUsername || user.email == enteredEmail);
     if (userExists) {
       showDialogueforUser(context: context);
+    } else {
+      var newUser = User(
+          username: enteredUsername,
+          email: enteredEmail,
+          password: enteredPassword);
+      await UserDb.addUser(newUser);
+      await UserDb.getUser();
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OnBoardingScreen(),
+          ));
+      usernameController.clear();
+      emailController.clear();
+      passwordController.clear();
+      conformPasswordController.clear();
     }
   }
 }

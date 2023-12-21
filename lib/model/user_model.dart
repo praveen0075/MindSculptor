@@ -1,4 +1,3 @@
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'user_model.g.dart';
@@ -11,7 +10,9 @@ class User{
   final String  email;
   @HiveField(2)
   final String password;
+  @HiveField(3)
+  String? key;
 
-  User({required this.username, required this.email, required this.password});
+  User({this.key,required this.username, required this.email, required this.password});
 
 }

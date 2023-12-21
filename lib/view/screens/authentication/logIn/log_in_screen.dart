@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+// import 'package:hive/hive.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
-import 'package:mind_sculptor/model/user_model.dart';
+import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
+// import 'package:mind_sculptor/model/user_model.dart';
 import 'package:mind_sculptor/view/screens/admin_side/main_screen.dart';
 import 'package:mind_sculptor/view/screens/authentication/signIn/sign_in_screen.dart';
 import 'package:mind_sculptor/view/screens/authentication/functions/authentication_functions.dart';
@@ -23,12 +24,13 @@ class _LogInScreenState extends State<LogInScreen> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController loginUsernameController = TextEditingController();
   final TextEditingController loginPasswordController = TextEditingController();
-  late Box<User> userBox;
+  // late Box<User> userBox;
 
   @override
   void initState() {
     super.initState();
-    userBox = Hive.box<User>('user_details');
+    // userBox = Hive.box<User>('user_details');
+    UserDb.getUser();
   }
 
   @override
@@ -96,7 +98,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             pushReplacementNavigator(context: context,screenName: const AdminScreen());
                       } else if (isLogInValidate) {
                         bool isLoggedIn = await checkUserExist(
-                            enteredUsername, enteredPassword,userBox);
+                            enteredUsername, enteredPassword);
                         if (isLoggedIn) {
                           // ignore: use_build_context_synchronously
                           pushReplacementNavigator(context: context,screenName: const BottomNavi());
