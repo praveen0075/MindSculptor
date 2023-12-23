@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mind_sculptor/view/screens/user_side/exercise/exercise_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/home/home_screen.dart';
-import 'package:mind_sculptor/view/screens/user_side/journal/journal_screen.dart';
+import 'package:mind_sculptor/view/screens/user_side/journal/display/journal_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/settings/setting_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/music/display_music/sleep_screen.dart';
 import 'package:pelaicons/pelaicons.dart';

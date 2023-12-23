@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/widgets/calendar_view.dart';
 import 'package:mind_sculptor/view/widgets/buttons.dart';
 
 class JournalWriteScreen extends StatelessWidget {
@@ -51,27 +52,15 @@ class JournalWriteScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
+                    const Row(
                       children: [
-                        const SizedBox(
+                         SizedBox(
                           width: 20,
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: GestureDetector(
-                            child: const SizedBox(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.calendar_month_outlined),
-                                  Text('select a date'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                        CalendarViewToPickDate(),
                       ],
                     ),
-                    Expanded(
+                    Expanded( 
                       child: SizedBox(
                         width: double.infinity,
                         child: Padding(

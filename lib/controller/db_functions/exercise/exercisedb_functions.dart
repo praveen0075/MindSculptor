@@ -19,10 +19,10 @@ class ExerciseDb with ChangeNotifier{
     final timekey = DateTime.now().millisecondsSinceEpoch.toString();
     newExercisemodel.key=timekey;
     await exerciseBox.put(timekey, newExercisemodel);
-    await ExecriseStepsDb.addExerciseSteps(tempList,timekey);
+    await ExecriseStepsDb.addExerciseSteps(tempList,timekey); 
     // print('the key of adding a exercise is $timekey');
    }  
-
+  
    static Future<void> updateExercise(NewExercises editedExercise)async{
     final updateBox = await  Hive.openBox<NewExercises>(excriseDb);
     String key=editedExercise.key??'';

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mind_sculptor/view/screens/user_side/journal/journal_write_screen.dart';
+import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/journal_write_screen.dart';
 
 class JournalWriteSection extends StatelessWidget {
   const JournalWriteSection({super.key});

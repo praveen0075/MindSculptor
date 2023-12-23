@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mind_sculptor/view/screens/user_side/journal/journal_full_view.dart';
-import 'package:mind_sculptor/view/screens/user_side/journal/journal_write_screen.dart';
+import 'package:mind_sculptor/view/screens/user_side/journal/full_view/journal_full_view.dart';
+import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/journal_write_screen.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 
 class JournalScreen extends StatelessWidget {
@@ -43,36 +43,27 @@ class JournalScreen extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const JournalviewScreen(),));
                 },
                 child: Card(
+                  // color: Colors.yellow.shade100,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   elevation: 10,
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Padding(
-                        padding:  EdgeInsets.all(10.0),
-                        child:  Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  child: const Padding(
+                    padding:  EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Title',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
-                            Text('10/11/2023')
+                            Text('Title',style: TextStyle(fontSize: 20),),
+                            Text('12/12/12')
                           ],
                         ),
-                      ),
-                      Container(
-                        height: 80,
-                        width: 1,
-                        color: Colors.black, 
-                      ),
-                      const Flexible(child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('It is a long established fact that a readerLorem Ipsum is that it has amore-or-less It is a long established fact that a reader'),
-                      ),),
-                    ],
-                  ),  
+                        sizedBox10,
+                        Text('safdjalsjfljal;jfdsaksfhkhklashfdklhaksfhdkhakfhkdahkfhakhsdfkhakhfkhdakhfkahkdhkahfkhakshdfkhaskdhfhaskd')
+                      ],
+                    ),
+                  )
                 ),
               ),
              ),

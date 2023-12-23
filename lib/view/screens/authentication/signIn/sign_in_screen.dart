@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
-import 'package:mind_sculptor/model/user_model.dart';
+import 'package:mind_sculptor/model/user_side/user_model.dart';
 import 'package:mind_sculptor/view/screens/authentication/functions/authentication_functions.dart';
 import 'package:mind_sculptor/view/screens/authentication/logIn/log_in_screen.dart';
 import 'package:mind_sculptor/view/screens/authentication/widgets/signup_textformfield_widget.dart';

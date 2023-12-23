@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mind_sculptor/model/user_model.dart';
+import 'package:mind_sculptor/model/user_side/user_model.dart';
 
 ValueNotifier <List<User>> userNotifier = ValueNotifier([]);
 
