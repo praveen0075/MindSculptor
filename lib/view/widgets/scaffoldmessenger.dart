@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-showSnackBar({BuildContext? context,Color? textcolor,Color? backgroundColor}) {
+showSnackBar({BuildContext? context,Color? textcolor,Color? backgroundColor,String? text}) {
   return ScaffoldMessenger.of(context!).showSnackBar(
      SnackBar(
       content: Text(
-        'Inavlid Username and Password',
+        text??'',
         style: TextStyle(color: textcolor),
       ),
       backgroundColor: backgroundColor,

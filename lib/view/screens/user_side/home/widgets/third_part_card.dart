@@ -30,7 +30,7 @@ class JournalWriteSection extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const JournalWriteScreen(),
+                        builder: (context) =>  JournalWriteScreen(),
                       ));
                 },
                 child: const Icon(CupertinoIcons.right_chevron))

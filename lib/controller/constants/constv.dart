@@ -7,6 +7,10 @@ const Color tc1 = Color.fromARGB(255, 61, 85, 195);
 const Color tc2 = Color.fromARGB(255, 163, 198, 226);
 
 // sizedbox with hight
+const sizedBox5 = SizedBox(
+  height: 5,
+);
+
 const sizedBox10 = SizedBox(
   height: 10,
 );

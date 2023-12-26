@@ -19,8 +19,8 @@ class JournalAdapter extends TypeAdapter<Journal> {
     return Journal(
       journalKey: fields[3] as String?,
       title: fields[0] as String,
-      date: fields[1] as String,
       paraghraph: fields[2] as String,
+      dayDate: fields[4] as DateTime,
     );
   }
 
@@ -30,12 +30,12 @@ class JournalAdapter extends TypeAdapter<Journal> {
       ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
-      ..writeByte(1)
-      ..write(obj.date)
       ..writeByte(2)
       ..write(obj.paraghraph)
       ..writeByte(3)
-      ..write(obj.journalKey);
+      ..write(obj.journalKey)
+      ..writeByte(4)
+      ..write(obj.dayDate);
   }
 
   @override
