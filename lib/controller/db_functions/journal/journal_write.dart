@@ -14,17 +14,20 @@ class JournalDB with ChangeNotifier{
     await addjournalBox.put(timeKey, newJournal);
   }
 
-  static Future<void> getjournal()async{
+  static Future <List<Journal>> getjournal()async{
     final getjournalBox = await Hive.openBox<Journal>(journalDb);
      journalNotifier.value.clear();
-     journalNotifier.value = getjournalBox.values.toList();
+     List<Journal> journals = getjournalBox.values.toList();
+     journalNotifier.value = journals;
+    //  journalNotifier.value = getjournalBox.values.toList();
      journalNotifier.notifyListeners();
+     return journals;
   }
 
   static Future<void> updateJournal(Journal updatedJournal)async{
     final updateJournalBox = await Hive.openBox<Journal>(journalDb);
     String key = updatedJournal.journalKey??" ";
-    updateJournalBox.put(key, updatedJournal);
+    updateJournalBox.put(key, updatedJournal);  
     await getjournal();
   }
 

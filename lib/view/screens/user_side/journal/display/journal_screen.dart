@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/db_functions/journal/journal_write.dart';
-// import 'package:mind_sculptor/model/user_side/journal_model.dart';
+import 'package:mind_sculptor/model/user_side/journal_model.dart';
 import 'package:mind_sculptor/view/screens/user_side/journal/display/journal_card.dart';
 import 'package:mind_sculptor/view/screens/user_side/journal/full_view/journal_full_view.dart';
 import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/journal_write_screen.dart';
@@ -16,12 +17,25 @@ class JournalScreen extends StatefulWidget {
 }
 
 class _JournalScreenState extends State<JournalScreen> {
+  late List<Journal> allJournals = journalNotifier.value;
+  late List<Journal> filteredJournals = [];
+  Icon customIcon = const Icon(CupertinoIcons.search);
+  Widget customSearchBar =  Text('Journal',style:
+  TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily));
+
   @override
   void initState() {
     super.initState();
     JournalDB.getjournal();
+    // fetchJournal();
   }
 
+  void filterSearchResult(String query){
+    setState(() {
+      filteredJournals = allJournals.where((element) => element.title.toLowerCase().contains(query.toLowerCase())).toList();
+      journalNotifier.value = filteredJournals;
+    });
+  }
   String? smallDescription;
   String? journalTitle;
 
@@ -38,11 +52,30 @@ class _JournalScreenState extends State<JournalScreen> {
             },
             child: const Icon(Icons.add)),
         appBar: AppBar(
+          actions: [
+            IconButton(onPressed: (){
+              setState(() {
+                if(customIcon.icon == CupertinoIcons.search){
+                  customIcon = const Icon(Icons.cancel_outlined);
+                  customSearchBar =  TextField(
+                    onChanged: (value) {
+                      filterSearchResult(value);
+                      // filterJournals(value);
+                    },
+                  decoration: const InputDecoration.collapsed(hintText: 'search..',hintStyle: TextStyle(color: Colors.white)),
+                  style:const TextStyle(color: Colors.white,fontSize: 16.0,),
+                  );
+                }else{
+                  customIcon =const  Icon(CupertinoIcons.search);
+                  customSearchBar = Text('Journal',style:
+                  TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily));
+                }
+              });
+            }, icon: customIcon)
+          ],
           backgroundColor: tc1,
           elevation: 0,
-          title: Text('Journal',
-              style:
-                  TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
+          title:customSearchBar,
           centerTitle: true,
         ),
         body: Container(
@@ -59,12 +92,13 @@ class _JournalScreenState extends State<JournalScreen> {
               child: ValueListenableBuilder(
                 valueListenable: journalNotifier,
                 builder: (context, journalList, child) {
+                  filteredJournals = journalList;
                   return SlidableAutoCloseBehavior(
                     closeWhenOpened: true,
                     child: ListView.builder(
-                      itemCount: journalList.length,
+                      itemCount: filteredJournals.length,
                       itemBuilder: (context, index) {
-                        var journalValue = journalList[index];
+                        var journalValue = filteredJournals[index];
                         String title = journalValue.title;
                         if (title.length >= 30) {
                           journalTitle = "${title.substring(0, 30)}....";
@@ -80,12 +114,8 @@ class _JournalScreenState extends State<JournalScreen> {
                         }
                         return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            // child: SizedBox(
-                            // height: 125,
                             child: InkWell(
                               onTap: () {
-                                print(journalValue.dayDate);
-                                print(journalValue.paraghraph);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -111,7 +141,60 @@ class _JournalScreenState extends State<JournalScreen> {
                                     journalTitle: journalTitle!,
                                     dateAdded: journalValue.dayDate,
                                   )),
-                              // child: Card(
+                            ));
+                      },
+                    ),
+                  );
+                },
+              ),
+            )));
+  }
+  void onDismissed(String key) {
+    JournalDB.deleteJournal(key);
+  }
+}
+
+
+
+
+  // void fetchJournal()async{
+  //   List<Journal> journal  = await JournalDB.getjournal();
+  //   setState(() {
+  //     allJournals = journal;
+  //     filteredJournals = List.from(allJournals);
+  //   });
+  // }
+
+  // void filterJournals(String query){
+  //   setState(() {
+  //     if(query.isEmpty){
+  //       filteredJournals = List.from(allJournals);
+  //     }else{
+  //       filteredJournals = allJournals.where((element) {
+  //         final title = element.title.toLowerCase();
+  //         // final date = element.dayDate.toString();
+  //         final searchLower = query.toLowerCase();
+  //         print(filteredJournals);
+  //         return title.contains(searchLower) ;
+  //       }).toList();
+  //     }
+  //   });
+  // }
+
+
+
+
+  // String smallDescription(String description){
+  //   if(description.length > 30){
+  //     return '${description.substring(0,30)}....';
+  //   }else{
+  //     return description;
+  //   }
+  // }
+
+
+
+      // child: Card(
                               //   // color: Colors.yellow.shade100,
                               //   shape: RoundedRectangleBorder(
                               //     borderRadius: BorderRadius.circular(20),
@@ -135,26 +218,3 @@ class _JournalScreenState extends State<JournalScreen> {
                               //     ),
                               //   )
                               // ),
-                            ));
-                        //  ),
-                        // );
-                      },
-                    ),
-                  );
-                },
-              ),
-            )));
-  }
-
-  void onDismissed(String key) {
-    JournalDB.deleteJournal(key);
-  }
-
-  // String smallDescription(String description){
-  //   if(description.length > 30){
-  //     return '${description.substring(0,30)}....';
-  //   }else{
-  //     return description;
-  //   }
-  // }
-}

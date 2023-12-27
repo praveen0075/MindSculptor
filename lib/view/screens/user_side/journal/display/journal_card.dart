@@ -31,7 +31,7 @@ class _JournalItemCardState extends State<JournalItemCard> {
             width: 100,
             padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.green,
               borderRadius: BorderRadius.circular(10)
             ), 
             child: Column(

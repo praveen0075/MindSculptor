@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
 import 'package:mind_sculptor/model/user_side/user_model.dart';
@@ -8,10 +7,8 @@ import 'package:mind_sculptor/view/screens/authentication/logIn/log_in_screen.da
 import 'package:mind_sculptor/view/screens/authentication/widgets/signup_textformfield_widget.dart';
 import 'package:mind_sculptor/view/screens/authentication/widgets/widgets.dart';
 import 'package:mind_sculptor/view/screens/user_side/onboarding/on_boarding_screen.dart';
-// import 'package:mind_sculptor/screens/authentication/functions/authentication_functions.dart';
 import 'package:mind_sculptor/view/widgets/buttons.dart';
 import 'package:mind_sculptor/view/widgets/screen_navigation.dart';
-// import 'package:mind_sculptor/widgets/textfields.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -144,6 +141,7 @@ class _SignInScreenState extends State<SignInScreen> {
           password: enteredPassword);
       await UserDb.addUser(newUser);
       await UserDb.getUser();
+      // 
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
           context,

@@ -12,7 +12,13 @@ class User{
   final String password;
   @HiveField(3)
   String? key;
+  @HiveField(4)
+  String? phoneNumber;
+  @HiveField(5)
+  String? profilepicPath;
+  @HiveField(6)
+  String? yourName;
 
-  User({this.key,required this.username, required this.email, required this.password});
+  User({this.key,required this.username, required this.email, required this.password,this.phoneNumber,this.profilepicPath,this.yourName});
 
 }
