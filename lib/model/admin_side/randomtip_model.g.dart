@@ -17,7 +17,7 @@ class RandomTipsAdapter extends TypeAdapter<RandomTips> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return RandomTips(
-      fields[0] as String,
+      tip: fields[0] as String,
     );
   }
 

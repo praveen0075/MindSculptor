@@ -1,22 +1,35 @@
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:mind_sculptor/model/user_side/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 ValueNotifier <List<User>> userNotifier = ValueNotifier([]);
 
 class UserDb with ChangeNotifier{
   static const String userDb = "user_details";
-  static String? userId;
+  static const String saveUserKey = 'SaveUserKey';
 
   static Future <void> addUser(User newUser)async{
     final userBox = await Hive.openBox<User>(userDb); 
     final timeKey = DateTime.now().millisecondsSinceEpoch.toString();
     print(timeKey);
-    // newUser.key = timeKey;  
+    newUser.key = timeKey;  
     await userBox.put(timeKey, newUser);
-    userId = timeKey;
-    print(userId);
+    await saveTheKey(key: newUser.key!);
+    print(newUser.key);
+  }
+
+  static Future <void> saveTheKey({required String key}) async{
+    SharedPreferences sharedpref = await SharedPreferences.getInstance();
+    sharedpref.setString(saveUserKey, key);
+  }
+
+  static Future <String?> getSavedKey()async{
+    SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    return sharedPref.getString(saveUserKey);
   }
 
   static Future <void> getUser()async{
@@ -38,5 +51,12 @@ class UserDb with ChangeNotifier{
     String key = updateUser.key??'';
     userupdateBox.put(key, updateUser);
     // getUser();
+  }
+
+  static Future <void> deleteProfilePic(User currentUser)async{
+    final userobx = await Hive.openBox<User>(userDb);
+    String key = currentUser.key??"";
+    currentUser.profilepicPath = null;
+    userobx.put(key, currentUser);
   }
 }

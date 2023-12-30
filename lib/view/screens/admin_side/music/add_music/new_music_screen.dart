@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/db_functions/songs/songs_db_functions.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
@@ -95,6 +96,8 @@ class _NewSongAdminScreenState extends State<NewSongAdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+           title: Text('Add Music',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 18, 28, 77),
         elevation: 0,
       ),

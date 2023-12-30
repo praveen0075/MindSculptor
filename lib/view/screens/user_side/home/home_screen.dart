@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/view/screens/user_side/home/widgets/first_container.dart';
 import 'package:mind_sculptor/view/screens/user_side/home/widgets/randomtips_part.dart';
 import 'package:mind_sculptor/view/screens/user_side/home/widgets/second_part_containers.dart';
@@ -25,11 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: const BoxDecoration(),
         child: ScrollConfiguration(
           behavior: const ScrollBehavior().copyWith(overscroll: false),
-          child: const SingleChildScrollView(
+          child:  const SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                  FirstContainer(),
+                 sizedBox10,
                  SecondPartContainers(),
                  JournalWriteSection(),
                  Padding(

@@ -95,7 +95,7 @@ class _JournalviewScreenState extends State<JournalviewScreen> {
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(2000),
-                                  lastDate: DateTime(2050))
+                                  lastDate: DateTime.now())
                               .then((value) {
                             setState(() {
                               if (value != null) {
@@ -107,7 +107,7 @@ class _JournalviewScreenState extends State<JournalviewScreen> {
                             },
                             child: const Icon(CupertinoIcons.calendar,color: Colors.black,))
                           ],
-                ),
+                ),  
                 sizedBox20,
                 SingleChildScrollView(
                   child: Column(

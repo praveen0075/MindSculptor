@@ -48,10 +48,19 @@ class RandomTipsDisplay extends StatelessWidget {
                                       child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
-                                        child: Text(
-                                      randomtips.tip.toString(),
-                                      textAlign: TextAlign.center,
-                                    )),
+                                      child: TextField(
+                                        decoration: const InputDecoration(border: InputBorder.none,hintText: 'Write here'),
+                                        controller: TextEditingController(text: randomtips.tip),
+                                        textAlign: TextAlign.center,
+                                        onChanged: (value) {
+                                          randomtips.tip = value;
+                                        },
+                                      ),
+                                    //     child: Text(
+                                    //   randomtips.tip.toString(),
+                                    //   textAlign: TextAlign.center,
+                                    // )
+                                    ),
                                   )),
                                 ],
                               ),
@@ -61,11 +70,12 @@ class RandomTipsDisplay extends StatelessWidget {
                         Positioned(
                           bottom: 10,
                           right: 10,
-                          child: InkWell(
-                              onTap: () {
-                                deleteTipFromDatabase(index);
-                              },
-                              child: const Icon(Icons.delete_outline)),
+                          child: 
+                              InkWell(
+                                  onTap: () {
+                                    deleteTipFromDatabase(index);
+                                  },
+                                  child: const Icon(Icons.delete_outline)),
                         )
                       ],
                     ),

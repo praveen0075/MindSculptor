@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/db_functions/random_tips/random_tipdb_functions.dart';
 import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
@@ -25,7 +26,7 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
   void addTipToDatabase() async {
     final String tip = _tip.text.trim();
     if (tip.isNotEmpty) {
-      RandomTips tipValue = RandomTips(tip);
+      RandomTips tipValue = RandomTips(tip: tip);
       await RandomTipsDb.addTip(tipValue);
       await RandomTipsDb.getTip();
       _tip.clear();
@@ -38,10 +39,11 @@ class _DailyTipsAdminScreenState extends State<DailyTipsAdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mindfulness Tips'),
+              title: Text('Mindfulness tips',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
+        centerTitle: true,
         backgroundColor: tc1,
         elevation: 0,
-        centerTitle: true,
+      
       ),
       body: Container(
         decoration: const BoxDecoration(

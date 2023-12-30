@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/controller/db_functions/songs/songs_db_functions.dart';
 import 'package:mind_sculptor/model/admin_side/music_model.dart';
@@ -23,6 +24,13 @@ class _SleepMusicScreenState extends State<SleepMusicScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+                  'Music',
+                  style: TextStyle(
+                    fontFamily: GoogleFonts.archivoBlack().fontFamily,
+                  ),
+                ),
           elevation: 0,
           backgroundColor: const Color.fromARGB(255, 18, 28, 77),
         ),

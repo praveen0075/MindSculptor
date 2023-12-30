@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/controller/db_functions/journal/journal_write.dart';
@@ -8,7 +10,6 @@ import 'package:mind_sculptor/view/screens/user_side/journal/display/journal_scr
 // import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/widgets/calendar_view.dart';
 import 'package:mind_sculptor/view/widgets/buttons.dart';
 import 'package:mind_sculptor/view/widgets/scaffoldmessenger.dart';
-import 'package:mind_sculptor/view/widgets/screen_navigation.dart';
 
 class JournalWriteScreen extends StatefulWidget {
   const JournalWriteScreen({super.key});
@@ -30,6 +31,13 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+                  'Write Journal',
+                  style: TextStyle(
+                    fontFamily: GoogleFonts.archivoBlack().fontFamily,color: Colors.black
+                  ),
+                ),
+                centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -77,36 +85,43 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        sizedBox20,
-                        MaterialButton(
-                          onPressed: () {
-                            showDatePicker(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          sizedBox20,
+                          Text(
+                              DateFormat('dd/MM/yyyy').format(date),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
+                              sizedBox10w,
+                             InkWell(
+                              onTap: () { 
+                                 showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime(2000),
-                                    lastDate: DateTime(2050))
+                                    lastDate: DateTime.now())
                                 .then((value) {
                               setState(() {
                                 if (value != null) {
-                                  date = value;
+                                   date = value;
                                   // widget.onselectedDate(date);
                                 }
                               });
                             });
-                          },
-                          color: Colors.blue,
-                          child: Text(
-                            DateFormat('dd/MM/yyyy').format(date),
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        )
-                        // CalendarViewToPickDate(onselectedDate: (DateTime date){
-
-                        // }),
-                        // CalendarViewToPickDate(),
-                      ],
+                              },
+                              child: const Icon(CupertinoIcons.calendar,color: Colors.black,))
+                    
+                                      
+                          // CalendarViewToPickDate(onselectedDate: (DateTime date){
+                    
+                          // }),
+                          // CalendarViewToPickDate(),
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: SizedBox(
@@ -168,8 +183,10 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
     } else {
       // JournalDB.getjournal();
       JournalDB.addJournal(newJournalModel);
-      pushReplacementNavigator(
-          context: context, screenName: const JournalScreen());
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const JournalScreen(),));
+      // Navigator.pop(context);
+      // pushReplacementNavigator(
+      //     context: context, screenName: const JournalScreen());
       // JournalDB.getjournal();
     }
   }

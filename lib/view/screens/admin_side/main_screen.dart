@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/view/screens/admin_side/daily_random_tips/daily_tips_screen.dart';
 import 'package:mind_sculptor/view/screens/admin_side/exercises/exercise_display/exercise_screen.dart';
 import 'package:mind_sculptor/view/screens/admin_side/music/view_music/music_screen.dart';
@@ -12,6 +13,13 @@ class AdminScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: tc1),
+        backgroundColor: tc1,
+        elevation: 0,
+              title: Text('Admin Management',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
+        centerTitle: true,
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,

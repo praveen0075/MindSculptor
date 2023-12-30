@@ -63,17 +63,21 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
+            builder: (context) {
+              return  StatefulBuilder(builder: (context, setState) {
+                return AlertDialog(
               actions: [
                 ElevatedButton(
                     onPressed: () {
                       addExerciseToList();
                       selectedImageForExercise = null;
+                      Navigator.pop(context);
                     },
                     child: const Text('Save')),
                 OutlinedButton(
                     onPressed: () {
                       exerciseInstructionController.clear();
+                      selectedImageForExercise = null;
                     },
                     child: const Text('Clear'))
               ],
@@ -105,20 +109,34 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: ElevatedButton(
-                            onPressed: () async {
+                        child: InkWell(
+                          onTap: () async {
                               final imagePath = await collectImage();
                               if (imagePath != null) {
-                                selectedImageForExercise = imagePath;
+                              setState(() {
+                                 selectedImageForExercise = imagePath;
+                              },);
+                               
                               }
                             },
-                            child: const Text('Click here to Add Image')),
+                          child: Container(
+                            width: double.maxFinite,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              image: selectedImageForExercise != null ? DecorationImage(image: FileImage(File(selectedImageForExercise!)),fit: BoxFit.cover):null,
+                              border: Border.all()
+                            ),
+                            child: const Center(child: Icon(Icons.add_photo_alternate_outlined)),
+                          ),
+                        )
                       )
                     ],
                   ),
                 ),
               ),
-            ),
+            );
+              },) ;
+            },
           );
           // screenNavigation(context: context,key: const AddInstructionsScreen());
         },
@@ -207,6 +225,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
         await ExerciseDb.addExercise(newExercises, tempList);
         await ExerciseDb.getExersise();
       }
+      // ignore: use_build_context_synchronously
       showSnackbar(context, bgColor: Colors.green, text: 'saved succesfully');
       setState(() {
         tempList.clear();
@@ -229,6 +248,14 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   }
 
 }
+
+
+// onPressed: () async {
+//                               final imagePath = await collectImage();
+//                               if (imagePath != null) {
+//                                 selectedImageForExercise = imagePath;
+//                               }
+//                             },
 
 
                // Padding(

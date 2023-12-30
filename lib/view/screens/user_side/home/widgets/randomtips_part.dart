@@ -1,7 +1,41 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class RandomTipsInHomeScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:mind_sculptor/controller/db_functions/random_tips/random_tipdb_functions.dart';
+import 'package:mind_sculptor/model/admin_side/randomtip_model.dart';
+
+class RandomTipsInHomeScreen extends StatefulWidget {
   const RandomTipsInHomeScreen({super.key});
+
+  @override
+  State<RandomTipsInHomeScreen> createState() => _RandomTipsInHomeScreenState();
+}class _RandomTipsInHomeScreenState extends State<RandomTipsInHomeScreen> {
+  List<RandomTips> rTipsList = [];
+  List<int> displayedIndexes = [];
+  Random random = Random();
+
+  @override
+  void initState() {
+    super.initState();
+    getRtips();
+  }
+
+  void getRtips() async {
+    final randomTipList = await RandomTipsDb.getTip();
+    setState(() {
+      rTipsList = randomTipList;
+      displayedIndexes = List.generate(rTipsList.length, (index) => index);
+      displayedIndexes.shuffle(); 
+    });
+  }
+
+  int getUniqueIndex() {
+    if (displayedIndexes.isEmpty) {
+      displayedIndexes = List.generate(rTipsList.length, (index) => index);
+      displayedIndexes.shuffle(); 
+    }
+    return displayedIndexes.removeLast();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,25 +43,32 @@ class RandomTipsInHomeScreen extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 150,
-            width: double.maxFinite,
-            child: Card(
-              elevation: 5,
-              color: const Color.fromARGB(255, 13, 119, 195).withOpacity(0.7),
+          child: Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: const Padding(
-                padding:  EdgeInsets.all(10.0),
-                child: Center(
-                  child: Padding(
-                    padding:  EdgeInsets.all(8.0),
-                    child: Text(
-                      '',
-                      style:  TextStyle(color: Colors.white, fontSize: 17),
-                      textAlign: TextAlign.center,
+                borderRadius: BorderRadius.circular(20),
+              ),
+            elevation: 5,
+            child: Container(
+              height: 140,
+            width: double.maxFinite,
+              decoration: BoxDecoration(
+                image: const DecorationImage(image: AssetImage("assets/images/tip1image.jpg"),fit: BoxFit.cover),
+                color: const Color.fromARGB(255, 13, 119, 195).withOpacity(0.7),
+                borderRadius: BorderRadius.circular(20)),
+          
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+               child: Row(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."' ,
+                        style: const TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
@@ -35,51 +76,65 @@ class RandomTipsInHomeScreen extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 150,
-            width: double.maxFinite,
-            child: Card(
-              elevation: 5,
-              color: const Color.fromARGB(255, 47, 152, 114).withOpacity(0.7),
-              shape: RoundedRectangleBorder(
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            elevation: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                  image: const DecorationImage(image: AssetImage("assets/images/tip2image.jpg"),fit: BoxFit.cover),
+                  color: const Color.fromARGB(255, 13, 119, 195).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(20)),
-              child: const Padding(
-                padding:  EdgeInsets.all(10.0),
-                child: Center(
-                  child: Padding(
-                    padding:  EdgeInsets.all(8.0),
-                    child: Text(
-                      '',
-                      style:  TextStyle(color: Colors.white, fontSize: 17),
-                      textAlign: TextAlign.center,
+            
+              height: 140,
+              width: double.maxFinite,
+              child: Padding(
+                padding:const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."' ,
+                        style: const TextStyle(color: Colors.black, fontSize: 15,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
           ),
         ),
-        Padding(
+  Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 150,
-            width: double.maxFinite,
-            child: Card(
-              elevation: 5,
-              color: const Color.fromARGB(255, 211, 137, 84).withOpacity(0.7),
-              shape: RoundedRectangleBorder(
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            elevation: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                  image: const DecorationImage(image: AssetImage("assets/images/tip3image.jpg"),fit: BoxFit.cover),
+                  color: const Color.fromARGB(255, 13, 119, 195).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(20)),
-              child: const Padding(
-                padding:  EdgeInsets.all(10.0),
-                child: Center(
-                  child: Padding(
-                    padding:  EdgeInsets.all(8.0),
-                    child: Text(
-                      '',
-                      style:  TextStyle(color: Colors.white, fontSize: 17),
-                      textAlign: TextAlign.center,
+            
+              height: 140,
+              width: double.maxFinite,
+              child: Padding(
+                padding:const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."' ,
+                        style: const TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),

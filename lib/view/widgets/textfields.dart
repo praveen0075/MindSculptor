@@ -22,6 +22,7 @@ Widget appTextField({
         maxLines: 2,
         controller: txtcntrlr,
         decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.lightbulb,color: Colors.yellow,),
           contentPadding: conntentpadding,
           fillColor: fcolor,
           filled: true,

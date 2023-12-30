@@ -29,13 +29,20 @@ class _JournalScreenState extends State<JournalScreen> {
     JournalDB.getjournal();
     // fetchJournal();
   }
-
-  void filterSearchResult(String query){
+void filterSearchResult(String query){
+  if(query.isEmpty) {
+    setState(() {
+      filteredJournals = allJournals;
+      journalNotifier.value = filteredJournals;
+    });
+  } else {
     setState(() {
       filteredJournals = allJournals.where((element) => element.title.toLowerCase().contains(query.toLowerCase())).toList();
       journalNotifier.value = filteredJournals;
     });
   }
+}
+
   String? smallDescription;
   String? journalTitle;
 
@@ -54,24 +61,32 @@ class _JournalScreenState extends State<JournalScreen> {
         appBar: AppBar(
           actions: [
             IconButton(onPressed: (){
-              setState(() {
-                if(customIcon.icon == CupertinoIcons.search){
-                  customIcon = const Icon(Icons.cancel_outlined);
-                  customSearchBar =  TextField(
-                    onChanged: (value) {
-                      filterSearchResult(value);
-                      // filterJournals(value);
-                    },
-                  decoration: const InputDecoration.collapsed(hintText: 'search..',hintStyle: TextStyle(color: Colors.white)),
-                  style:const TextStyle(color: Colors.white,fontSize: 16.0,),
-                  );
-                }else{
-                  customIcon =const  Icon(CupertinoIcons.search);
-                  customSearchBar = Text('Journal',style:
-                  TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily));
-                }
-              });
-            }, icon: customIcon)
+               setState(() {
+              if(customIcon.icon == CupertinoIcons.search){
+                customIcon = const Icon(Icons.cancel_outlined);
+                customSearchBar =  TextField(
+                  onChanged: (value) {
+                    filterSearchResult(value);
+                  },
+                  decoration: const InputDecoration.collapsed(
+                    hintText: 'search..',
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 16.0,),
+                );
+              } else {
+                customIcon = const Icon(CupertinoIcons.search,color: Colors.white,);
+                customSearchBar = Text(
+                  'Journal',
+                  style: TextStyle(
+                    fontFamily: GoogleFonts.archivoBlack().fontFamily,
+                  ),
+                );
+                // Clear search results when search bar is closed
+                filterSearchResult('');
+              }
+            });
+          }, icon: customIcon)
           ],
           backgroundColor: tc1,
           elevation: 0,
@@ -95,7 +110,7 @@ class _JournalScreenState extends State<JournalScreen> {
                   filteredJournals = journalList;
                   return SlidableAutoCloseBehavior(
                     closeWhenOpened: true,
-                    child: ListView.builder(
+                    child: filteredJournals.isEmpty? const Center(child: Text('Journal is empty',style: TextStyle(color: Colors.white),)): ListView.builder(
                       itemCount: filteredJournals.length,
                       itemBuilder: (context, index) {
                         var journalValue = filteredJournals[index];
@@ -147,7 +162,7 @@ class _JournalScreenState extends State<JournalScreen> {
                   );
                 },
               ),
-            )));
+            )));  
   }
   void onDismissed(String key) {
     JournalDB.deleteJournal(key);

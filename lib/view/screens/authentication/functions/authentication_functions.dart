@@ -58,7 +58,6 @@ String? validateLoginPassword(String? value) {
   Future<bool> checkUserExist(
       String enteredUsername, String enteredPassword) async {
     // var existingUserData = userBox.values.cast<User>().toList();
-
     bool existingUser = userNotifier.value.any((user) =>
         user.username == enteredUsername && user.password == enteredPassword);
     if (existingUser) {
@@ -88,3 +87,4 @@ String? validateLoginPassword(String? value) {
         },
       );
   }
+

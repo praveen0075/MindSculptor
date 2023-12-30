@@ -8,6 +8,7 @@ import 'package:mind_sculptor/view/screens/user_side/settings/about/about_screen
 import 'package:mind_sculptor/view/screens/user_side/settings/privacy%20policy/privacypolicy_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/settings/profile/profile_screen.dart';
 import 'package:mind_sculptor/view/widgets/setting_screen_tiles.dart';
+// import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -16,21 +17,17 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
          title:  Text('Settings',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily,color: Colors.black)),
       ),
-      body:  Center(
-        child:  Column(
+      body:  SingleChildScrollView(
+        child: Column(
           children: [
             sizedBox10,
-           const  CircleAvatar(
-            backgroundColor: Colors.white,
-            backgroundImage: NetworkImage('https://imgs.search.brave.com/F2-JuCznDFyTZacItZl1MFz_oVdn6DBVaT6OBkGRA7o/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAxLzI2LzYxLzEz/LzM2MF9GXzEyNjYx/MTMzN19tOGtjUnRT/NUc3QWhyRnBPUTBX/dWZ4NFBnTDZKNHl4/Zy5qcGc'),
-              radius: 50,
-            ),
             sizedBox30, 
             InkWell(
               onTap: (){
@@ -46,7 +43,7 @@ class SettingScreen extends StatelessWidget {
             sizedBox10,
             InkWell(
               onTap: (){
-                
+                // shareApp();
               },
               child: settingsScreenTiles(avatarColor: Colors.green.shade100,icon: Icons.share_outlined,title: "Share",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.green)),
             sizedBox10,
@@ -88,4 +85,13 @@ class SettingScreen extends StatelessWidget {
       )
     );
   }
+  // Future <void> shareApp()async{
+  //    String applink = 'https://play.google.com/store/apps/details?id=com.example.myapp';
+  //    String message = 'Check out my new app; $applink';
+
+  //    await FlutterShare.share(title: 'Share App',text: message,linkUrl: applink);
+  // }
+  // Future <void> shareApp() async{
+  //   Share.share('check out my website ', subject: 'Look what I made!');
+  // }
 }

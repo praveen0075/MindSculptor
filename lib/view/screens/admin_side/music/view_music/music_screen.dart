@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/db_functions/songs/songs_db_functions.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/view/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
@@ -66,7 +67,7 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
         ),
       ),
       appBar: AppBar(
-        title: const Text('Music'),
+            title: Text('Music',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 18, 28, 77),
         // backgroundColor: Colors.black,

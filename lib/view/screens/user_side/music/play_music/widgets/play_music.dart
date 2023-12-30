@@ -92,7 +92,7 @@ class _PlayMusicSectionState extends State<PlayMusicSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              sizedBox30,
+              sizedBox20w,
               Column(
                 children: [
                   IconButton(

@@ -139,7 +139,7 @@ class _SignInScreenState extends State<SignInScreen> {
           username: enteredUsername,
           email: enteredEmail,
           password: enteredPassword);
-      await UserDb.addUser(newUser);
+          await UserDb.addUser(newUser);
       await UserDb.getUser();
       // 
       // ignore: use_build_context_synchronously
