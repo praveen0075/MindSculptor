@@ -6,9 +6,10 @@ import 'package:mind_sculptor/view/screens/authentication/functions/authenticati
 import 'package:mind_sculptor/view/screens/authentication/logIn/log_in_screen.dart';
 import 'package:mind_sculptor/view/screens/authentication/widgets/signup_textformfield_widget.dart';
 import 'package:mind_sculptor/view/screens/authentication/widgets/widgets.dart';
-import 'package:mind_sculptor/view/screens/user_side/onboarding/on_boarding_screen.dart';
 import 'package:mind_sculptor/view/widgets/buttons.dart';
+import 'package:mind_sculptor/view/widgets/scaffoldmessenger.dart';
 import 'package:mind_sculptor/view/widgets/screen_navigation.dart';
+
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -141,12 +142,17 @@ class _SignInScreenState extends State<SignInScreen> {
           password: enteredPassword);
           await UserDb.addUser(newUser);
       await UserDb.getUser();
-      // 
+      // ignore: use_build_context_synchronously
+      showSnackBar(backgroundColor: Colors.green,context: context,text: 'Successfully completed',textcolor: Colors.white);
+
+      // SharedPreferences sharepref = await SharedPreferences.getInstance();
+      // sharepref.setBool('userEntered', true);
+      // // 
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const OnBoardingScreen(),
+            builder: (context) => const LogInScreen(),
           ));
       usernameController.clear();
       emailController.clear();

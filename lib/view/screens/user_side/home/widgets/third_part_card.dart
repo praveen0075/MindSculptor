@@ -10,31 +10,32 @@ class JournalWriteSection extends StatelessWidget {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Container(
-        width: 390,
-        height: 65,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-                color: Colors.black,
-                strokeAlign: BorderSide.strokeAlignCenter)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text(
-              'Write Your Mindfulness Thoughts',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-            ),
-            InkWell(
-                onTap: () {
+      child: InkWell(
+          onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>  JournalWriteScreen(),
+                        builder: (context) => const JournalWriteScreen(),
                       ));
                 },
-                child: const Icon(CupertinoIcons.right_chevron))
-          ],
+        child: Container(
+          width: 390,
+          height: 65,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                  color: Colors.black,
+                  strokeAlign: BorderSide.strokeAlignCenter)),
+          child:const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+               Text(
+                'Write Your Mindfulness Thoughts',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+                Icon(CupertinoIcons.right_chevron)
+            ],
+          ),
         ),
       ),
     );

@@ -63,7 +63,7 @@ class Frontviewcard extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               sizedBox5,
-              Container(
+              SizedBox(
                 child: Text(DateFormat('dd/MM/yyyy').format(widget.journalModel.dayDate),
                     style: Theme.of(context)
                         .textTheme
@@ -78,12 +78,12 @@ class Frontviewcard extends StatelessWidget {
                 child: SizedBox(
                   
                   child: ScrollConfiguration(
-                    behavior: ScrollBehavior().copyWith(overscroll: false),
+                    behavior: const ScrollBehavior().copyWith(overscroll: false),
                     child: SingleChildScrollView(
                       child: Column(
                         // color: Colors.blue,
                                     
-                        children: [Text(widget.journalModel.paraghraph,style: TextStyle(fontSize: 18),)],
+                        children: [Text(widget.journalModel.paraghraph,style: const TextStyle(fontSize: 18),)],
                       ),
                     ),
                   ),

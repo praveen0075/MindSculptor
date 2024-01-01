@@ -5,8 +5,8 @@ import 'package:mind_sculptor/controller/constants/constv.dart';
 
 class JournalItemCard extends StatefulWidget {
   const JournalItemCard({super.key, required this.smallDescription, required this.journalTitle, required this.dateAdded});
-
-
+  
+  
   final String smallDescription;
   final String journalTitle;
   final DateTime? dateAdded;

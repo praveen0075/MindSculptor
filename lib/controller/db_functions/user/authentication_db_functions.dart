@@ -2,7 +2,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:mind_sculptor/model/user_side/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,11 +14,9 @@ class UserDb with ChangeNotifier{
   static Future <void> addUser(User newUser)async{
     final userBox = await Hive.openBox<User>(userDb); 
     final timeKey = DateTime.now().millisecondsSinceEpoch.toString();
-    print(timeKey);
     newUser.key = timeKey;  
     await userBox.put(timeKey, newUser);
     await saveTheKey(key: newUser.key!);
-    print(newUser.key);
   }
 
   static Future <void> saveTheKey({required String key}) async{

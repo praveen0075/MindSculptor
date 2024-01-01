@@ -84,6 +84,7 @@ flutter:
     - assets\images\tip1image.jpg
     - assets\images\tip3image.jpg
     - assets\images\tip2image.jpg
+    - assets\images\firstcontainerimage.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

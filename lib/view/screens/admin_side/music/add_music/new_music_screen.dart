@@ -24,7 +24,7 @@ class _NewSongAdminScreenState extends State<NewSongAdminScreen> {
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration postion = Duration.zero;
-  // late Box<Songs> songBox;
+
   @override
   void initState() {
     super.initState();
@@ -58,6 +58,8 @@ class _NewSongAdminScreenState extends State<NewSongAdminScreen> {
         image = File(pickedImage.path);
       }
     });
+
+
   }
 
     Future<void> pickMusic() async {
@@ -66,6 +68,7 @@ class _NewSongAdminScreenState extends State<NewSongAdminScreen> {
                       music = musicPath;
                       if (music != null) {
                         audioPlayer.setSourceDeviceFile(music!);
+                        
                       }
                     });
                   }
@@ -131,13 +134,6 @@ class _NewSongAdminScreenState extends State<NewSongAdminScreen> {
               ),
               InkWell(
                 onTap: () async {
-                  // String? musicFilePath = await collectMusic();
-                  // // print("the music file path is $musicFilePath");
-                  // setState(() {
-                  //   music = musicFilePath;
-                  //   audioPlayer.setSourceDeviceFile(music!);
-
-                  // });
                 pickMusic();
                 },
                 child: Padding(

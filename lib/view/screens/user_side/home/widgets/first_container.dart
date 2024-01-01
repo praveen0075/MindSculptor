@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
+import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
+import 'package:mind_sculptor/model/user_side/user_model.dart';
 import 'package:mind_sculptor/view/screens/user_side/home/widgets/mood_container.dart';
 // import 'package:mind_sculptor/view/screens/user_side/home/widgets/mood_container.dart';
 
-class FirstContainer extends StatelessWidget {
+class FirstContainer extends StatefulWidget {
   const FirstContainer({super.key});
 
+  @override
+  State<FirstContainer> createState() => _FirstContainerState();
+}
+
+class _FirstContainerState extends State<FirstContainer> {
+  String? username;
+  String? key = " ";
+   User? currentUser;
+  @override
+  void initState(){
+    super.initState();
+    getusername();
+  }
+  getusername()async{
+    key = await UserDb.getSavedKey();
+    if(key != null && key!.isNotEmpty){
+      final user = await UserDb.getUserById(key!);
+      setState(() {
+         username = user!.username;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -26,9 +50,8 @@ class FirstContainer extends StatelessWidget {
             height: 250,
             width: double.infinity,
             decoration: BoxDecoration(
-              image: const DecorationImage(image: NetworkImage("https://img.freepik.com/free-vector/gradient-mountain-landscape_23-2149162007.jpg"),
-                // image: const DecorationImage(
-                //   image: AssetImage("assets/images/homeImage.jpg"),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/firstcontainerimage.jpg"),
                   fit: BoxFit.cover,
                 ),
                 color: tc1.withOpacity(0.7)),
@@ -55,25 +78,25 @@ class FirstContainer extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                 const Row(
                   children: [
-                    Padding(
+                     Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Text(
-                        'Hello',
+                        'Hello..',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Username...",
-                        style: TextStyle(color: Colors.white, fontSize: 19),
-                      ),
-                    )
+                    // Padding(
+                    //   padding:const EdgeInsets.all(8.0),
+                    //   child: Text(
+                    //     username??"User...",
+                    //     style: const TextStyle(color: Colors.white, fontSize: 19),
+                    //   ),
+                    // )
                   ],
                 ),
                 sizedBox10,

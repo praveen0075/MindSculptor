@@ -23,8 +23,9 @@ class JournalviewScreen extends StatefulWidget {
 }
 
 class _JournalviewScreenState extends State<JournalviewScreen> {
+  TextEditingController journaltitleController = TextEditingController();
 
-   String? editedtitle;
+  String? editedtitle;
   String? editedParagraph;
   DateTime? date;
 
@@ -43,7 +44,7 @@ class _JournalviewScreenState extends State<JournalviewScreen> {
         actions: [
           IconButton(onPressed: (){
             saveEditedJournalToDb();
-            Navigator.pop(context);
+           
           }, icon: const Icon(Icons.done))
         ],
       ),
@@ -69,13 +70,14 @@ class _JournalviewScreenState extends State<JournalviewScreen> {
                     hintText: 'Title',
                   ),
                   controller:
-                      TextEditingController(text: widget.journalModel.title),
+                   TextEditingController(text: widget.journalModel.title),
+                      // journaltitleController = widget.journalModel.title.toString()
                   // widget.journalModel.title,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 22,fontWeight: FontWeight.bold),
                   onChanged: (value) {
-                    if(value.isNotEmpty){
+               
                       editedtitle = value;
-                    }
+                  
                   },
                 ),
                 sizedBox5,
@@ -144,6 +146,7 @@ class _JournalviewScreenState extends State<JournalviewScreen> {
       final newJournal = Journal(title: editedtitle??widget.journalModel.title, paraghraph: editedParagraph??widget.journalModel.paraghraph,dayDate: date??DateTime.now(),journalKey: widget.journalModel.journalKey);
       JournalDB.updateJournal(newJournal);
       showSnackBar(backgroundColor: Colors.green,context: context,text: 'Successfully Edited',textcolor: Colors.white);
+       Navigator.pop(context);
   }
 }
 

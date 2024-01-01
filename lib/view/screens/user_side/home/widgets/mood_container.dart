@@ -79,13 +79,14 @@ class _MoodContainersState extends State<MoodContainers> {
         height: 45,
         width: 100,
         decoration: BoxDecoration(
-          color: Colors.white,
+          // color: Color.fromARGB(245, 253, 253, 114),
+          border: Border.all(color: Colors.white  ),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
           child: Text(
             emoji!,
-            style: const TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 25),
           ),
         ),
       ),

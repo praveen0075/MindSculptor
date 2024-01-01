@@ -21,7 +21,6 @@ class RandomTipsDb with ChangeNotifier{
   final tipBox = await Hive.openBox<RandomTips>(tipBoxName);
   await tipBox.add(value);
   rtips.add(value.tip);
-  print(rtips);
 } 
 
  static Future<void> deletTip(int  index)async{

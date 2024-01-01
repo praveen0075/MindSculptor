@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-// import 'package:hive/hive.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
-// import 'package:mind_sculptor/model/user_model.dart';
 import 'package:mind_sculptor/view/screens/admin_side/main_screen.dart';
 import 'package:mind_sculptor/view/screens/authentication/signIn/sign_in_screen.dart';
 import 'package:mind_sculptor/view/screens/authentication/functions/authentication_functions.dart';
 import 'package:mind_sculptor/view/screens/authentication/widgets/widgets.dart';
-import 'package:mind_sculptor/view/widgets/bottomnavigaiton/bottomnavigation_bar.dart';
+import 'package:mind_sculptor/view/screens/user_side/onboarding/on_boarding_screen.dart';
 import 'package:mind_sculptor/view/widgets/buttons.dart';
 import 'package:mind_sculptor/view/widgets/scaffoldmessenger.dart';
 import 'package:mind_sculptor/view/widgets/screen_navigation.dart';
@@ -101,10 +99,14 @@ class _LogInScreenState extends State<LogInScreen> {
                             enteredUsername, enteredPassword);
                         if (isLoggedIn) {
                           // ignore: use_build_context_synchronously
-                          pushReplacementNavigator(context: context,screenName: const BottomNavi());
+                          // pushReplacementNavigator(context: context,screenName: const BottomNavi());
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                            return const OnBoardingScreen();
+                          },));
                         } else {
                           // ignore: use_build_context_synchronously
-                          showSnackBar(context: context,backgroundColor: Colors.red,textcolor: Colors.white);
+                          showSnackBar(context: context,backgroundColor: Colors.red,textcolor: Colors.white,text: 'Invalid username and password');
                         }
                       }
                     },

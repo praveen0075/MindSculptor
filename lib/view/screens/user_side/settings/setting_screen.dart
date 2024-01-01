@@ -60,7 +60,7 @@ class SettingScreen extends StatelessWidget {
                 showDialog(context: context, builder: (context) {
                   return AlertDialog(
                    title: const Text('Log out'),
-                   content: const  Text('Are you sure you want to log out?'),
+                   content: const Text('Are you sure you want to log out?'),
                    actions: [
                     TextButton(onPressed: (){
                       Navigator.pop(context);
@@ -69,6 +69,7 @@ class SettingScreen extends StatelessWidget {
                       Navigator.pop(context);
                       final sharedpref = await SharedPreferences.getInstance();
                       await sharedpref.remove('userEntered');
+                      // await sharedpref.setBool('userEntered', false);
                 // ignore: use_build_context_synchronously
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const FirstScreen(),), (route) => false);
                     }, child: const Text("Log out")),

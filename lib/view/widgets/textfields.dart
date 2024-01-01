@@ -37,7 +37,7 @@ Widget appTextField({
   );
 }
 
-Widget textInputFormField(
+Widget  textInputFormField(
     {String? hintText, bool? obscure, IconData? fieldIcon,TextEditingController? txtcontroller,String? Function(String?)? validatorFunction}) {
   return Padding(
     padding: const EdgeInsets.only(left: 12, right: 12),

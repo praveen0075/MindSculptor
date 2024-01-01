@@ -16,7 +16,7 @@ void main()async{
   Hive.registerAdapter(NewExercisesAdapter());
   Hive.registerAdapter(SongsAdapter());
   Hive.registerAdapter(StepsOfExerciseModelAdapter());
-  Hive.registerAdapter(JournalAdapter());
+  Hive.registerAdapter(JournalAdapter()); 
 //  await Hive.openBox<User>("user_details");
   runApp(const App());
 }

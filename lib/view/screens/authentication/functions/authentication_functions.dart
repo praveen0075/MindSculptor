@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:mind_sculptor/controller/db_functions/user/authentication_db_functions.dart';
+// import 'package:mind_sculptor/model/user_side/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// String? userid;
 
 String? validateUsername(String? value) {
   if (value!.isEmpty) {
@@ -17,7 +20,7 @@ String? validateEmail(String? email) {
   }
 
   final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  if (!emailRegex.hasMatch(email)) {
+  if (!emailRegex.hasMatch(email) || !email.contains('.') || !email.endsWith('.com')) {
     return 'Enter a valid email address';
   }
   return null; // Return null if the email is valid
@@ -58,11 +61,14 @@ String? validateLoginPassword(String? value) {
   Future<bool> checkUserExist(
       String enteredUsername, String enteredPassword) async {
     // var existingUserData = userBox.values.cast<User>().toList();
-    bool existingUser = userNotifier.value.any((user) =>
-        user.username == enteredUsername && user.password == enteredPassword);
+    bool existingUser = userNotifier.value.any((user) {
+      //  userid = user.key;
+      return user.username == enteredUsername && user.password == enteredPassword;
+    },);
     if (existingUser) {
       SharedPreferences sharedPref = await SharedPreferences.getInstance();
       sharedPref.setBool('userEntered', true);
+      // sharedPref.setString('userEntered', userid!);
     }
     return existingUser;
   }

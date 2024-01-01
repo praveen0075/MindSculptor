@@ -19,6 +19,7 @@ class JournalScreen extends StatefulWidget {
 class _JournalScreenState extends State<JournalScreen> {
   late List<Journal> allJournals = journalNotifier.value;
   late List<Journal> filteredJournals = [];
+  
   Icon customIcon = const Icon(CupertinoIcons.search);
   Widget customSearchBar =  Text('Journal',style:
   TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily));
@@ -27,8 +28,17 @@ class _JournalScreenState extends State<JournalScreen> {
   void initState() {
     super.initState();
     JournalDB.getjournal();
-    // fetchJournal();
+    // getUserId();    // fetchJournal();
   }
+
+  // void getUserId()async{
+  //   SharedPreferences sharepref = await SharedPreferences.getInstance();
+  //   userId = sharepref.getString('userEntered');
+  // }
+
+  
+
+  
 void filterSearchResult(String query){
   if(query.isEmpty) {
     setState(() {

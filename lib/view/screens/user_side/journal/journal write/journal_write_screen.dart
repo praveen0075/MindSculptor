@@ -5,11 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/controller/db_functions/journal/journal_write.dart';
 import 'package:mind_sculptor/model/user_side/journal_model.dart';
-// import 'package:mind_sculptor/view/screens/admin_side/exercises/functions/exercise_screen_functions.dart';
-import 'package:mind_sculptor/view/screens/user_side/journal/display/journal_screen.dart';
-// import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/widgets/calendar_view.dart';
 import 'package:mind_sculptor/view/widgets/buttons.dart';
 import 'package:mind_sculptor/view/widgets/scaffoldmessenger.dart';
+
 
 class JournalWriteScreen extends StatefulWidget {
   const JournalWriteScreen({super.key});
@@ -26,6 +24,7 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
 // DateTime selectedDate;
   // DateTime? date;
   DateTime date = DateTime.now();
+  String? userId;
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +78,6 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
                                   borderSide: BorderSide.none),
                               hintText: 'Title',
                               hintStyle: TextStyle(fontSize: 18)),
-                          // onChanged: (newValue) {
-
-                          // },
                         ),
                       ),
                     ),
@@ -108,18 +104,11 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
                               setState(() {
                                 if (value != null) {
                                    date = value;
-                                  // widget.onselectedDate(date);
                                 }
                               });
                             });
                               },
                               child: const Icon(CupertinoIcons.calendar,color: Colors.black,))
-                    
-                                      
-                          // CalendarViewToPickDate(onselectedDate: (DateTime date){
-                    
-                          // }),
-                          // CalendarViewToPickDate(),
                         ],
                       ),
                     ),
@@ -166,6 +155,8 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
   void saveJournalToDb() async {
     String title = titleController.text.trim();
     String journal = journalController.text.trim();
+    // SharedPreferences sharedpref = await SharedPreferences.getInstance();
+      // userId  =  sharedpref.getString('userEntered');
     // DateTime date = selectedDate;
     var newJournalModel = Journal(title: title, paraghraph: journal,dayDate: date);
     if (titleController.text.isEmpty) {
@@ -183,11 +174,11 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
     } else {
       // JournalDB.getjournal();
       JournalDB.addJournal(newJournalModel);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const JournalScreen(),));
-      // Navigator.pop(context);
-      // pushReplacementNavigator(
-      //     context: context, screenName: const JournalScreen());
-      // JournalDB.getjournal();
+      journalController.clear();
+      titleController.clear();
+      date = DateTime.now();
+      Navigator.pop(context);
+      JournalDB.getjournal();
     }
   }
 }

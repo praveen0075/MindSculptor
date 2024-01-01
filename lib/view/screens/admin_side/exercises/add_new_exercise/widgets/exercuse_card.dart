@@ -54,6 +54,7 @@ Widget exerciseCard(
                         SizedBox(
                           width: 180,
                           child: TextField(
+                            maxLength: 50,
                             textAlign: TextAlign.center,
                             decoration: const InputDecoration(
                               hintText: 'Title',
@@ -65,6 +66,7 @@ Widget exerciseCard(
                           width: 250,
                           child: TextField(
                             keyboardType: TextInputType.multiline,
+                            maxLength: 120,
                             maxLines: null,
                             textAlign: TextAlign.center,
                             decoration: const InputDecoration(

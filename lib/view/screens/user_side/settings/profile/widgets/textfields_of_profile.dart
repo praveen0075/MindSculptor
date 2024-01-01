@@ -57,11 +57,7 @@ class _ProfileTextFieldsState extends State<ProfileTextFields> {
                 hintText: 'Your Name',
               ),
                onChanged: (newvalue) {
-                if(newvalue.isNotEmpty){
-                  setState(() {
                     yrname = newvalue;
-                  });
-                }
               },
             ),
           ),
