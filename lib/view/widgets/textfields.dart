@@ -30,7 +30,6 @@ Widget appTextField({
               borderRadius: BorderRadius.all(Radius.circular(fieldradi!)),
             ),
           hintText: hint,
-          // prefixIcon: Icon(icon,color: iconClr,),
         ),
       ),
     ),
@@ -58,36 +57,3 @@ Widget  textInputFormField(
     ),
   );
 }
-
-// Widget profilleTextField({
-//   double? radi,
-//   Color? fcolor,
-//   double? fieldradi,
-//   String? hint,
-//   IconData? icon,
-//   Color? iconClr,
-//   TextEditingController? txtcntrlr,
-// }) 
-// {
-//   return  SizedBox(
-//     // height: 100,
-//     child: Card(
-//       shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.all(Radius.circular(radi!)),side: const BorderSide(style: BorderStyle.solid,width: 2)),
-//       elevation: 10,
-//       child: TextField(
-//         controller: txtcntrlr,
-//         decoration: InputDecoration(
-//           // // contentPadding: conntentpadding,
-//           // fillColor: fcolor,
-//           // filled: true,
-//           border: OutlineInputBorder(
-//               borderRadius: BorderRadius.all(Radius.circular(fieldradi!)),
-//             ),
-//           hintText: hint,
-//           // prefixIcon: Icon(icon,color: iconClr,),
-//         ),
-//       ),
-//     ),
-//   );
-// }

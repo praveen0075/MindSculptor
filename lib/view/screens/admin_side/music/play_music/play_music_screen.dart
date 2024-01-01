@@ -223,7 +223,6 @@ Future <void> pickMusic()async{
                                         await audioPlayer.pause();
                                       }else{
                                         audioPlayer.setSourceDeviceFile(editedMusic ?? musicDetails.musicPath);
-                                        // audioPlayer.setSourceDeviceFile(musicDetails.musicPath);
                                         await audioPlayer.resume();
                                       }
                                     },

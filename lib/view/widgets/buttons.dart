@@ -35,21 +35,3 @@ class ButtonClass extends StatelessWidget {
   }
 }
 
-
-// Widget normalButton({double? width,double? height,String? text,cradius,VoidCallback? onpress}) {
-//   return ElevatedButton(
-//   onPressed: onpress,
-//     style: ButtonStyle(
-//         minimumSize: MaterialStateProperty.all( Size(width!, height!)),
-//         shape: MaterialStateProperty.all(
-//           RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(cradius!),
-//           ),
-//         ),
-//         backgroundColor: MaterialStateProperty.all(Colors.blue)),
-//     child:  Text(text!),
-//   );
-// }
-
-
-

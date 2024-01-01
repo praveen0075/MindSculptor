@@ -56,10 +56,6 @@ class RandomTipsDisplay extends StatelessWidget {
                                           randomtips.tip = value;
                                         },
                                       ),
-                                    //     child: Text(
-                                    //   randomtips.tip.toString(),
-                                    //   textAlign: TextAlign.center,
-                                    // )
                                     ),
                                   )),
                                 ],

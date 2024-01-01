@@ -9,6 +9,7 @@ import 'package:mind_sculptor/view/screens/user_side/journal/full_view/journal_f
 import 'package:mind_sculptor/view/screens/user_side/journal/journal%20write/journal_write_screen.dart';
 import 'package:mind_sculptor/controller/constants/constv.dart';
 
+
 class JournalScreen extends StatefulWidget {
   const JournalScreen({super.key});
 
@@ -19,6 +20,8 @@ class JournalScreen extends StatefulWidget {
 class _JournalScreenState extends State<JournalScreen> {
   late List<Journal> allJournals = journalNotifier.value;
   late List<Journal> filteredJournals = [];
+  // String? userkey;
+  // Journal? journalValue;
   
   Icon customIcon = const Icon(CupertinoIcons.search);
   Widget customSearchBar =  Text('Journal',style:
@@ -28,17 +31,8 @@ class _JournalScreenState extends State<JournalScreen> {
   void initState() {
     super.initState();
     JournalDB.getjournal();
-    // getUserId();    // fetchJournal();
   }
 
-  // void getUserId()async{
-  //   SharedPreferences sharepref = await SharedPreferences.getInstance();
-  //   userId = sharepref.getString('userEntered');
-  // }
-
-  
-
-  
 void filterSearchResult(String query){
   if(query.isEmpty) {
     setState(() {
@@ -92,7 +86,6 @@ void filterSearchResult(String query){
                     fontFamily: GoogleFonts.archivoBlack().fontFamily,
                   ),
                 );
-                // Clear search results when search bar is closed
                 filterSearchResult('');
               }
             });
@@ -157,7 +150,7 @@ void filterSearchResult(String query){
                                             backgroundColor: Colors.red,
                                             icon: Icons.delete_forever,
                                             onPressed: (context) {
-                                              return onDismissed(journalValue.journalKey??'');
+                                              return onDismissed(journalValue.journalKey ?? ' ');
                                             })
                                       ]),
                                   child: JournalItemCard(
@@ -178,68 +171,3 @@ void filterSearchResult(String query){
     JournalDB.deleteJournal(key);
   }
 }
-
-
-
-
-  // void fetchJournal()async{
-  //   List<Journal> journal  = await JournalDB.getjournal();
-  //   setState(() {
-  //     allJournals = journal;
-  //     filteredJournals = List.from(allJournals);
-  //   });
-  // }
-
-  // void filterJournals(String query){
-  //   setState(() {
-  //     if(query.isEmpty){
-  //       filteredJournals = List.from(allJournals);
-  //     }else{
-  //       filteredJournals = allJournals.where((element) {
-  //         final title = element.title.toLowerCase();
-  //         // final date = element.dayDate.toString();
-  //         final searchLower = query.toLowerCase();
-  //         print(filteredJournals);
-  //         return title.contains(searchLower) ;
-  //       }).toList();
-  //     }
-  //   });
-  // }
-
-
-
-
-  // String smallDescription(String description){
-  //   if(description.length > 30){
-  //     return '${description.substring(0,30)}....';
-  //   }else{
-  //     return description;
-  //   }
-  // }
-
-
-
-      // child: Card(
-                              //   // color: Colors.yellow.shade100,
-                              //   shape: RoundedRectangleBorder(
-                              //     borderRadius: BorderRadius.circular(20),
-                              //   ),
-                              //   elevation: 10,
-                              //   child:  Padding(
-                              //     padding: const EdgeInsets.all(15.0),
-                              //     child: Column(
-                              //       children: [
-                              //         Row(
-                              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //           children: [
-                              //             Text(journalValue.title,style:const TextStyle(fontSize: 20),),
-                              //             // Text(DateFormat('dd/mm/yyyy').format(journalValue.dayDate),style: TextStyle(color: Colors.red),)
-                              //             // Text(DateFormat('dd/mm/yyyy ').format(journalValue.date as DateTime))
-                              //           ],
-                              //         ),
-                              //         sizedBox10,
-                              //         Text(smallDescription??''),
-                              //       ],
-                              //     ),
-                              //   )
-                              // ),

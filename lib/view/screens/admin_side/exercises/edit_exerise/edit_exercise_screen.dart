@@ -104,7 +104,6 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
       body: Center(
         child: Column(
           children: [
-            // EditExerciseCard(exercises: widget.exercises,pickCardImage: pickCardImage,editedImage: editedImage,editedTitle: editedTitle,editedDescription: editedDescription),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -204,7 +203,6 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                 child: Stack(
                   children: [
                     SizedBox(
-                      // color: Colors.blue,
                       width: double.infinity,
                       child: ValueListenableBuilder(
                           valueListenable: stepsListNotifer,
@@ -302,10 +300,6 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                                                             );
                                                           },
                                                         );
-                                                        // showDeleteDialog(
-                                                        //             index, context, () {
-                                                        //                 deleteExerciseStep(stepListData);
-                                                        //         });
                                                       },
                                                       icon: const Icon(
                                                           Icons.delete_outline)),
@@ -315,11 +309,6 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                                                       onPressed: () {
                                                         pickInstructionImage(
                                                             stepListData);
-                                        
-                                                        // setState(() {
-                                        
-                                                        //   stepListData.imageOfStep = editedInstructionImage;
-                                                        // });
                                                       },
                                                       child: const Text(
                                                           'Change Image?')),

@@ -70,11 +70,9 @@ class _AdminSongScreenState extends State<AdminSongScreen> {
             title: Text('Music',style: TextStyle(fontFamily: GoogleFonts.archivoBlack().fontFamily)),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 18, 28, 77),
-        // backgroundColor: Colors.black,
         elevation: 0,
       ),
       backgroundColor: const Color.fromARGB(255, 18, 28, 77),
-      // backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ValueListenableBuilder(

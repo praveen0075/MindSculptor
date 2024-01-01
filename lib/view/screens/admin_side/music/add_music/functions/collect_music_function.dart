@@ -6,7 +6,6 @@ Future<String>  collectMusic() async{
     try {
        final result = await FilePicker.platform.pickFiles(
       type: FileType.audio,
-      // allowMultiple: false,
      );
      if(result != null){
       final musicFile =  File(result.files.single.path!);
@@ -14,10 +13,8 @@ Future<String>  collectMusic() async{
      }
      return "path didn't get";
     }on Exception catch (e) {
-      // print("the error is here $e");
       return "the error$e";
     } catch(e){
-    //  print("the catched error is $e");
      return "the error$e";
     }
     }  

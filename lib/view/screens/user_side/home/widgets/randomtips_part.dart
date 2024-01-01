@@ -96,7 +96,7 @@ class RandomTipsInHomeScreen extends StatefulWidget {
                     SizedBox(
                       width: 200,
                       child: Text(
-                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."' ,
+                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Kindness is a language that everyone understands, and it costs nothing to speak."' ,
                         style: const TextStyle(color: Colors.black, fontSize: 15,fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
@@ -129,7 +129,7 @@ class RandomTipsInHomeScreen extends StatefulWidget {
                     SizedBox(
                       width: 200,
                       child: Text(
-                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."' ,
+                        rTipsList.isNotEmpty ? rTipsList[getUniqueIndex()].tip : '"Practice gratitude daily; it turns what we have into enough."' ,
                         style: const TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),

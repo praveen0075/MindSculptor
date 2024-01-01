@@ -4,7 +4,7 @@ import 'package:mind_sculptor/controller/db_functions/user/authentication_db_fun
 // import 'package:mind_sculptor/model/user_side/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// String? userid;
+  String? userid;
 
 String? validateUsername(String? value) {
   if (value!.isEmpty) {
@@ -59,16 +59,19 @@ String? validateLoginPassword(String? value) {
 // check user logged in (login screen)
 
   Future<bool> checkUserExist(
+     
       String enteredUsername, String enteredPassword) async {
+     
     // var existingUserData = userBox.values.cast<User>().toList();
     bool existingUser = userNotifier.value.any((user) {
-      //  userid = user.key;
+       userid = user.key;
       return user.username == enteredUsername && user.password == enteredPassword;
     },);
     if (existingUser) {
       SharedPreferences sharedPref = await SharedPreferences.getInstance();
       sharedPref.setBool('userEntered', true);
-      // sharedPref.setString('userEntered', userid!);
+      SharedPreferences sharedpreference = await SharedPreferences.getInstance();
+      sharedpreference.setString('userEnteredId', userid!);
     }
     return existingUser;
   }

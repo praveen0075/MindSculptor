@@ -9,6 +9,7 @@ import 'package:mind_sculptor/view/screens/admin_side/exercises/functions/imagep
 import 'package:mind_sculptor/view/screens/authentication/functions/authentication_functions.dart';
 import 'package:mind_sculptor/view/screens/authentication/widgets/widgets.dart';
 import 'package:mind_sculptor/view/widgets/scaffoldmessenger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -36,7 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> getUserDetails() async {
-    key = await UserDb.getSavedKey();
+    SharedPreferences sharepref = await SharedPreferences.getInstance();
+      key =  sharepref.getString('userEnteredId');
     if (key != null && key!.isNotEmpty) {
       final user = await UserDb.getUserById(key!);
       setState(() {

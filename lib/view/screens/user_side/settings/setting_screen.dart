@@ -7,8 +7,8 @@ import 'package:mind_sculptor/controller/constants/constv.dart';
 import 'package:mind_sculptor/view/screens/user_side/settings/about/about_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/settings/privacy%20policy/privacypolicy_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/settings/profile/profile_screen.dart';
+import 'package:mind_sculptor/view/screens/user_side/settings/terms%20and%20conditions/terms_and_conditions.dart';
 import 'package:mind_sculptor/view/widgets/setting_screen_tiles.dart';
-// import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -52,9 +52,16 @@ class SettingScreen extends StatelessWidget {
                 screenNavigation(context: context,screen: const AbooutScreen());
               },
               child: settingsScreenTiles(avatarColor: Colors.purple.shade100,icon:Icons.info_outline,title: "About",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.purple)),
+               sizedBox10,
+            InkWell(
+              onTap: (){
+                screenNavigation(context: context,screen: const TermsAndCondtions());
+              },
+              child: settingsScreenTiles(avatarColor: Colors.orange.shade100,icon:Icons.document_scanner_outlined,title: "Terms & conidtions",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.orange)),
             const Divider(
               height: 50,
             ),
+            
             InkWell(
               onTap: ()async{
                 showDialog(context: context, builder: (context) {
@@ -69,7 +76,8 @@ class SettingScreen extends StatelessWidget {
                       Navigator.pop(context);
                       final sharedpref = await SharedPreferences.getInstance();
                       await sharedpref.remove('userEntered');
-                      // await sharedpref.setBool('userEntered', false);
+                      final shredpre = await SharedPreferences.getInstance();
+                      await shredpre.remove('userEnteredId');
                 // ignore: use_build_context_synchronously
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const FirstScreen(),), (route) => false);
                     }, child: const Text("Log out")),
@@ -86,13 +94,4 @@ class SettingScreen extends StatelessWidget {
       )
     );
   }
-  // Future <void> shareApp()async{
-  //    String applink = 'https://play.google.com/store/apps/details?id=com.example.myapp';
-  //    String message = 'Check out my new app; $applink';
-
-  //    await FlutterShare.share(title: 'Share App',text: message,linkUrl: applink);
-  // }
-  // Future <void> shareApp() async{
-  //   Share.share('check out my website ', subject: 'Look what I made!');
-  // }
 }

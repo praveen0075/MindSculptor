@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mind_sculptor/controller/db_functions/songs/songs_db_functions.dart';
-import 'package:mind_sculptor/view/screens/user_side/music/display_music/widgets/randomtip_display_widgets.dart';
+import 'package:mind_sculptor/view/screens/user_side/music/display_music/widgets/music_display.dart';
 
 class SleepScreen extends StatefulWidget {
   const SleepScreen({super.key});
@@ -98,69 +98,3 @@ class _SleepScreenState extends State<SleepScreen> {
     );
   }
 }
-
-
-
-
-       // Expanded(            
-            //       child: ScrollConfiguration(
-            //         behavior: const ScrollBehavior().copyWith(overscroll: false),
-            //         child: ValueListenableBuilder(
-            //           valueListenable: songNotifier,
-            //           builder: (context, musicList, child) {
-            //             if(musicList.isEmpty){
-            //               return const Center(child: Text('No Music Available!',style: TextStyle(color: Colors.white),),);
-            //             }else{
-            //             return  GridView.builder(
-            //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //                   crossAxisCount: 2,
-            //                   crossAxisSpacing: 8,),
-            //               itemCount: musicList.length,
-            //               itemBuilder: ((context, index) {
-            //                 var relaxmusic = musicList[index];
-            //                 return Card(
-            //         color: Colors.white.withOpacity(0.1),
-            //         child: Stack(children: [
-            //           Container(
-            //             margin: const EdgeInsets.all(10),
-            //             child: Column(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 InkWell(
-            //                   onTap: () {
-            //                    screenNavigation(context: context,screen: SleepMusicScreen(songsModel:relaxmusic,));
-            //                   },
-            //                   child: ClipRRect(
-            //                     borderRadius: BorderRadius.circular(13),
-            //                     child: Container(
-            //                       width: double.maxFinite,
-            //                       height: 120,
-            //                       decoration: BoxDecoration(
-            //                           borderRadius: BorderRadius.circular(13)),
-            //                       child: Image.file(
-            //                         File(relaxmusic.image),
-            //                         fit: BoxFit.cover,
-            //                       ),
-            //                     ),
-            //                   ),
-            //                 ),
-            //                 Text(
-            //                   relaxmusic.title,
-            //                   style: const TextStyle(
-            //                       fontWeight: FontWeight.bold,
-            //                       fontSize: 16,
-            //                       color: Colors.white),
-            //                 ),
-                        
-            //               ],
-            //             ),
-            //           ),
-                     
-            //         ]),
-            //       );
-            //               }));}
-            //           },
-            //         ),
-            //       ),
-            //     ),

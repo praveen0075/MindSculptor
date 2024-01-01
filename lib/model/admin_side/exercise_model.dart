@@ -29,28 +29,3 @@ class  StepsOfExerciseModel{
  StepsOfExerciseModel({this.exerciseKey,this.imageOfStep,this.stepKey,this.stepText});
 }
 
-
-
-
-// import 'package:hive/hive.dart';
-
-// part 'exercise_model.g.dart';
-
-// @HiveType(typeId: 3)
-// class NewExercises{
-//   @HiveField(0)
-//   late final String title;
-//   @HiveField(1)
-//   final String description;
-//   @HiveField(2)
-//   final String cardImage;
-//   @HiveField(3)
-//   final List<String>? steps;
-//   @HiveField(4)
-//   final List<String>? imageSteps;
-//   @HiveField(5)
-//    int? key;
-
-//   NewExercises({required this.steps,required this.imageSteps, this.key,required this.title, required this.description, required this.cardImage});
- 
-// } 

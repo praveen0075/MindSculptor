@@ -24,7 +24,6 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
 // DateTime selectedDate;
   // DateTime? date;
   DateTime date = DateTime.now();
-  String? userId;
 
   @override
   Widget build(BuildContext context) {
@@ -155,8 +154,6 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
   void saveJournalToDb() async {
     String title = titleController.text.trim();
     String journal = journalController.text.trim();
-    // SharedPreferences sharedpref = await SharedPreferences.getInstance();
-      // userId  =  sharedpref.getString('userEntered');
     // DateTime date = selectedDate;
     var newJournalModel = Journal(title: title, paraghraph: journal,dayDate: date);
     if (titleController.text.isEmpty) {
@@ -166,11 +163,9 @@ class _JournalWriteScreenState extends State<JournalWriteScreen> {
           textcolor: Colors.white,
           text: "Title is not Added");
     } else if (journalController.text.isEmpty) {
-      showSnackBar(
-          backgroundColor: Colors.red,
-          context: context,
-          textcolor: Colors.red,
-          text: "Please write something");
+     ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Please write something',style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,)
+     );
     } else {
       // JournalDB.getjournal();
       JournalDB.addJournal(newJournalModel);
