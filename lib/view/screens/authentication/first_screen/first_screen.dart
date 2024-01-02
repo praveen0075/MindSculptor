@@ -74,10 +74,7 @@ class FirstScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: GestureDetector(
-                          onTap: () => Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const LogInScreen();
-                          })),
+                          onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LogInScreen(),)),
                           child: const Text(
                             'LOG IN',
                             style: TextStyle(

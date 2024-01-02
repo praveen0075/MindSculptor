@@ -63,6 +63,7 @@ void filterSearchResult(String query){
             },
             child: const Icon(Icons.add)),
         appBar: AppBar(
+        automaticallyImplyLeading: false,
           actions: [
             IconButton(onPressed: (){
                setState(() {
