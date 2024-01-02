@@ -55,14 +55,9 @@ String? validateLoginPassword(String? value) {
   }
 }
 
-
-// check user logged in (login screen)
-
   Future<bool> checkUserExist(
      
       String enteredUsername, String enteredPassword) async {
-     
-    // var existingUserData = userBox.values.cast<User>().toList();
     bool existingUser = userNotifier.value.any((user) {
        userid = user.key;
       return user.username == enteredUsername && user.password == enteredPassword;

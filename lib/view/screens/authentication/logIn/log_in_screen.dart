@@ -91,15 +91,13 @@ class _LogInScreenState extends State<LogInScreen> {
                       String enteredPassword =
                           loginPasswordController.text.trim();
                       final isLogInValidate = _formkey.currentState!.validate();
-                      if (enteredUsername == 'pravee@123' &&
-                          enteredPassword == '1234') {
+                      if (enteredUsername == 'pxadmin@123' &&
+                          enteredPassword == 'lost') {
                             pushReplacementNavigator(context: context,screenName: const AdminScreen());
                       } else if (isLogInValidate) {
                         bool isLoggedIn = await checkUserExist(
                             enteredUsername, enteredPassword);
                         if (isLoggedIn) {
-                          // ignore: use_build_context_synchronously
-                          // pushReplacementNavigator(context: context,screenName: const BottomNavi());
                           // ignore: use_build_context_synchronously
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                             return const OnBoardingScreen();
@@ -144,87 +142,4 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
-
-
-
-
-
-
-  // Future<bool> checkUserExist(
-  //     String enteredUsername, String enteredPassword) async {
-  //   var existingUserData = userBox.values.cast<User>().toList();
-
-  //   bool existingUser = existingUserData.any((user) =>
-  //       user.username == enteredUsername && user.password == enteredPassword);
-  //   if (existingUser) {
-  //     SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  //     sharedPref.setBool('userEntered', true);
-  //   }
-  //   return existingUser;
-  // }
 }
-
-
-
-
-
-//check user exist 
-    // ignore: use_build_context_synchronously
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => const BottomNavi()),
-                          // );
-                          // ignore: use_build_context_synchronously
-
-
-
-//textformfield
-
-
-                                 // Padding(
-                          //   padding: const EdgeInsets.only(left: 12, right: 12),
-                          //   child: TextFormField(
-                          //     validator: (value) {
-                          //       if (value == null || value.isEmpty) {
-                          //         return 'Please enter your Password';
-                          //       } else {
-                          //         return null;
-                          //       }
-                          //     },
-                          //     controller: loginPasswordController,
-                          //     obscureText: true,
-                          //     decoration: InputDecoration(
-                          //         prefixIcon: const Icon(Icons.lock),
-                          //         enabledBorder: OutlineInputBorder(
-                          //             borderSide:
-                          //                 const BorderSide(color: Colors.black),
-                          //             borderRadius: BorderRadius.circular(20)),
-                          //         hintText: 'Password',
-                          //         border: OutlineInputBorder(
-                          //             borderSide:
-                          //                 const BorderSide(color: Colors.black),
-                          //             borderRadius: BorderRadius.circular(20))),
-                          //   ),
-                          // ),
-
-
-
-  // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const AdminScreen()),
-                        // );
-
-// show snackbar
-
-                                   // // ignore: use_build_context_synchronously
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   const SnackBar(
-                          //     content: Text(
-                          //       'Inavlid Username and Password',
-                          //       style: TextStyle(color: Colors.white),
-                          //     ),
-                          //     backgroundColor: Colors.red,
-                          //   ),
-                          // );
