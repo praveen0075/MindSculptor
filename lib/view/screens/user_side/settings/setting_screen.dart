@@ -9,6 +9,7 @@ import 'package:mind_sculptor/view/screens/user_side/settings/privacy%20policy/p
 import 'package:mind_sculptor/view/screens/user_side/settings/profile/profile_screen.dart';
 import 'package:mind_sculptor/view/screens/user_side/settings/terms%20and%20conditions/terms_and_conditions.dart';
 import 'package:mind_sculptor/view/widgets/setting_screen_tiles.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -43,7 +44,7 @@ class SettingScreen extends StatelessWidget {
             sizedBox10,
             InkWell(
               onTap: (){
-                // shareApp();
+                shareApp(context);
               },
               child: settingsScreenTiles(avatarColor: Colors.green.shade100,icon: Icons.share_outlined,title: "Share",traingIcon: CupertinoIcons.right_chevron,avatarIconColor: Colors.green)),
             sizedBox10,
@@ -93,5 +94,8 @@ class SettingScreen extends StatelessWidget {
         ),
       )
     );
+  }
+  void shareApp(BuildContext context){
+    Share.share('Check out this Amazing app:[]');
   }
 }

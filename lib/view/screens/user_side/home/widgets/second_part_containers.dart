@@ -21,7 +21,7 @@ class SecondPartContainers extends StatelessWidget {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => const SleepScreen(),));
             },
-            child: contaienrs(bgColor: Colors.amber,maintext: 'Sleep',subtext: 'Music')),
+            child: contaienrs(bgColor: Colors.amber,maintext: 'Relaxing',subtext: 'Music')),
         ],
       ),
     );
