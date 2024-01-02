@@ -64,7 +64,12 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   hive_generator: ^2.0.1
   build_runner: ^2.4.6
+  flutter_launcher_icons: ^0.13.1
 
+flutter_icons:
+  image_path: "assets/images/appLogo.png"  # Replace this with the path to your app's icon
+  android: true
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -85,6 +90,8 @@ flutter:
     - assets\images\tip3image.jpg
     - assets\images\tip2image.jpg
     - assets\images\firstcontainerimage.jpg
+    - assets\images\appLogo.png
+    - assets\images\perfect_night.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

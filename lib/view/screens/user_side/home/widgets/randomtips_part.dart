@@ -55,7 +55,6 @@ class RandomTipsInHomeScreen extends StatefulWidget {
                 image: const DecorationImage(image: AssetImage("assets/images/tip1image.jpg"),fit: BoxFit.cover),
                 color: const Color.fromARGB(255, 13, 119, 195).withOpacity(0.7),
                 borderRadius: BorderRadius.circular(20)),
-          
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                child: Row(
@@ -119,7 +118,6 @@ class RandomTipsInHomeScreen extends StatefulWidget {
                   image: const DecorationImage(image: AssetImage("assets/images/tip3image.jpg"),fit: BoxFit.cover),
                   color: const Color.fromARGB(255, 13, 119, 195).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(20)),
-            
               height: 140,
               width: double.maxFinite,
               child: Padding(
